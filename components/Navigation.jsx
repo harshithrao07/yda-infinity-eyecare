@@ -1,159 +1,130 @@
-"use client";
-
-import React from "react";
-import {
-  Navbar,
-  Typography,
-  IconButton,
-  Collapse,
-} from "@material-tailwind/react";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Archivo_Black } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
-const outfit = Archivo_Black({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: "400"
 });
 
-
-export function Navigation() {
-  const [openNav, setOpenNav] = React.useState(false);
-  const [showNav, setShowNav] = React.useState(true);
-  const [isTop, setIsTop] = React.useState(true);
-  const lastScrollY = React.useRef(0);
-
-  React.useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 960) setOpenNav(false);
-    };
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Transparent when at top
-      setIsTop(currentScrollY === 0);
-
-      // Show/hide nav based on scroll direction
-      if (currentScrollY > lastScrollY.current && currentScrollY > 50) {
-        setShowNav(false); // scrolling down
-      } else {
-        setShowNav(true); // scrolling up
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const navItems = [
+export default function Component() {
+  const navList = [
     {
-      name: "Glasses",
-      href: "/",
-    },
-    {
-      name: "Sunglasses",
-      href: "/",
-    },
-    {
-      name: "Accessories",
-      href: "/",
+      name: "About",
+      link: "/about",
     },
     {
       name: "Services",
-      href: "/",
+      link: "/services",
     },
     {
-      name: "Eye care",
-      href: "/",
+      name: "Gallery",
+      link: "/gallery",
+    },
+    {
+      name: "Blogs",
+      link: "/blogs",
     },
   ];
 
-  const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      {navItems.map((navItem, index) => (
-        <Typography
-          as="li"
-          variant="h6"
-          color="blue-gray"
-          className="flex items-center gap-x-2 p-1 font-medium"
-          key={index}
-        >
-          <Link href={navItem.href} className="flex items-center">
-            {navItem.name}
-          </Link>
-        </Typography>
-      ))}
-    </ul>
-  );
-
   return (
-    <Navbar
-      className={`fixed shadow-none top-0 z-20 h-max max-w-full px-4 py-2 hover:bg-white md:px-7 md:py-4 border-0 duration-300 transform transition-all
-        ${showNav ? "translate-y-0" : "-translate-y-full"}
-        ${isTop ? "bg-transparent" : "bg-white"}`}
+    <header className="flex h-16 border-gray-500 border-1 bg-white rounded-4xl mt-6 w-3/4 shrink-0 mx-auto items-center px-4 md:px-6 z-20 relative">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button variant="outline" size="icon" className="lg:hidden">
+            <MenuIcon className="h-6 w-6" />
+            <span className="sr-only">Toggle navigation menu</span>
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left">
+          <Link href="/" className="mr-6 hidden lg:flex" prefetch={false}>
+            <MountainIcon className="h-6 w-6" />
+            <span className="sr-only">Infinity Eye Care</span>
+          </Link>
+          <div className="grid gap-2 py-6">
+            {navList.map((nav, index) => (
+              <Link
+                key={index}
+                href={nav.link}
+                className="flex w-full items-center py-2 text-lg font-semibold"
+                prefetch={false}
+              >
+                {nav.name}
+              </Link>
+            ))}
+          </div>
+        </SheetContent>
+      </Sheet>
+      <Link href="/" className="mr-6 hidden lg:flex" prefetch={false}>
+        <Image alt="Infinity" src="/logo.png" height={40} width={40} />
+        <span className="sr-only">Infinity Eye Care</span>
+      </Link>
+      <nav className="ml-auto hidden lg:flex gap-12 h-full">
+        {navList.map((nav, index) => (
+          <Link
+            key={index}
+            href={nav.link}
+            prefetch={false}
+            className={`
+        ${montserrat.className}
+        font-semibold uppercase text-sm
+        flex h-full items-center
+        relative
+        after:content-['']
+        after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-3.5
+        after:block after:w-1 after:h-1 after:rounded-full
+        after:bg-gray-500
+        after:opacity-0 after:scale-50
+        hover:after:opacity-90 hover:after:scale-100
+        after:blur-[1px]
+        after:transition-all after:duration-300 after:ease-out
+      `}
+          >
+            <span className="relative z-10">{nav.name}</span>
+          </Link>
+        ))}
+      </nav>
+    </header>
+  );
+}
+
+function MenuIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
-      <div className="mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-x-2">
-          <Image
-            src="/logo.png"
-            alt="Infinity Eye Care"
-            width={50}
-            height={50}
-          />
-          <Typography variant="h1" className={`text-2xl font-black`}>
-            Infinity Eye Care
-          </Typography>
-        </Link>
-        <div className="hidden lg:block">{navList}</div>
-        <IconButton
-          variant="text"
-          className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-          ripple={false}
-          onClick={() => setOpenNav(!openNav)}
-        >
-          {openNav ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              className="h-6 w-6"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          )}
-        </IconButton>
-      </div>
-      <Collapse open={openNav}>
-        <div className="container mx-auto">{navList}</div>
-      </Collapse>
-    </Navbar>
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
+  );
+}
+
+function MountainIcon(props) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+    </svg>
   );
 }
