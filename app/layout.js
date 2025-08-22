@@ -1,7 +1,7 @@
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
-import ShaderBackground from "@/components/shader-background";
+import Header from "@/components/Header";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -17,10 +17,8 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${outfit.className} min-h-screen bg-[#f8f8f8]`}>
-        <ShaderBackground>
-          <Navigation />
-          {children}
-        </ShaderBackground>
+        <Navigation />
+        {children}
       </body>
     </html>
   );
