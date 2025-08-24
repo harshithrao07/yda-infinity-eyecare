@@ -1,163 +1,283 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { SplitText } from "gsap/all";
-import { Playfair_Display } from "next/font/google";
 
-const playfairDisplay = Playfair_Display({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-});
+function roundedRectPath(
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  r: number
+) {
+  const radius = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x, y + radius); // Start at top-left (with radius)
+  ctx.arcTo(x, y, x + w, y, 0); // top-left corner (sharp for top-right)
+  ctx.lineTo(x + w, y); // straight top-right
+  ctx.lineTo(x + w, y + h); // straight bottom-right
+  ctx.arcTo(x, y + h, x, y, 0); // bottom-left sharp
+  ctx.lineTo(x, y + h - radius); // go up to bottom-left radius
+  ctx.arcTo(x, y + h, x, y + h - radius, radius); // curve bottom-left
+  ctx.lineTo(x, y + radius); // back to start
+  ctx.arcTo(x, y, x + radius, y, radius); // curve top-left
+  ctx.closePath();
+}
 
-// This class will create a static ASCII art effect over an image.
 class StaticAsciiOverlay {
-  constructor(canvas, imageUrl, options) {
+  canvas: HTMLCanvasElement;
+  ctx: CanvasRenderingContext2D;
+  imageUrl: string;
+  image: HTMLImageElement;
+  options: any;
+  dpr: number;
+
+  constructor(canvas: HTMLCanvasElement, imageUrl: string, options?: any) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext("2d", { willReadFrequently: true });
+    this.ctx = canvas.getContext("2d", { willReadFrequently: true })!;
     this.imageUrl = imageUrl;
     this.options = {
       gridSize: 12,
       fontSize: 10,
-      characters: "✦❍QWERTYUIOPASDFGHJKLZXCVBNM*+",
+      characters: "✦❍INFINITY*+",
       contrast: 1.25,
       minBrightness: 0.15,
       textOpacity: 0.55,
-      imageBrightness: 1,
+      imageBrightness: 0.8,
       imageContrast: 1.0,
+      borderRadius: 22,
       ...options,
     };
+    this.dpr = Math.max(1, window.devicePixelRatio || 1);
 
-    // Load the image to start the process
+    // Load the image
     this.image = new Image();
-    this.image.crossOrigin = "Anonymous"; // Required for reading pixel data
+    this.image.crossOrigin = "anonymous";
     this.image.onload = () => this.draw();
     this.image.src = this.imageUrl;
   }
 
-  // The main drawing function, called once after the image loads.
+  sizeTo(container: HTMLElement) {
+    const rect = container.getBoundingClientRect();
+    const cssW = Math.max(1, Math.floor(rect.width));
+    const cssH = Math.max(1, Math.floor(rect.height));
+
+    // Set the canvas pixel size for crisp rendering
+    this.canvas.width = Math.floor(cssW * this.dpr);
+    this.canvas.height = Math.floor(cssH * this.dpr);
+    // Ensure the drawing operations are in CSS pixels
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+
+    // Also ensure the CSS size matches the container
+    this.canvas.style.width = cssW + "px";
+    this.canvas.style.height = cssH + "px";
+
+    this.draw();
+  }
+
   draw() {
-    const { width, height } = this.canvas;
+    const { width: cssWidth, height: cssHeight } =
+      this.canvas.getBoundingClientRect();
+    if (!cssWidth || !cssHeight) return;
 
-    // 1. Clear canvas and draw the base image with desired filters
-    this.ctx.clearRect(0, 0, width, height);
-    this.ctx.save();
-    this.ctx.filter = `brightness(${this.options.imageBrightness}) contrast(${this.options.imageContrast})`;
-    this.ctx.drawImage(this.image, 0, 0, width, height);
-    this.ctx.restore();
+    const w = Math.floor(cssWidth);
+    const h = Math.floor(cssHeight);
+    const ctx = this.ctx;
 
-    // 2. Get the raw pixel data from the drawn image
-    const pixelData = this.ctx.getImageData(0, 0, width, height).data;
+    // Clear
+    ctx.save();
+    ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
 
-    // 3. Set up the text style for the character overlay
-    this.ctx.fillStyle = `rgba(255, 255, 255, ${this.options.textOpacity})`;
-    this.ctx.font = `${this.options.fontSize}px monospace`;
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "middle";
+    // Clip to a rounded rectangle so everything (image, ASCII, overlays) feels embedded
+    roundedRectPath(ctx, 0, 0, w, h, this.options.borderRadius);
+    ctx.clip();
 
-    // 4. Iterate over the canvas in a grid
-    for (let y = 0; y < height; y += this.options.gridSize) {
-      for (let x = 0; x < width; x += this.options.gridSize) {
-        // Get the pixel color at the grid point (x, y)
-        const pixelIndex = (y * width + x) * 4;
-        const r = pixelData[pixelIndex];
-        const g = pixelData[pixelIndex + 1];
-        const b = pixelData[pixelIndex + 2];
+    // Draw base image with slight tonemapping
+    ctx.save();
+    ctx.filter = `brightness(${this.options.imageBrightness}) contrast(${this.options.imageContrast})`;
+    ctx.drawImage(this.image, 0, 0, w, h);
+    ctx.restore();
 
-        // Calculate the brightness (0 to 1) and apply contrast
+    // Grab pixels for ASCII sampling
+    const imgData = ctx.getImageData(0, 0, w, h).data;
+
+    // ASCII styling (slight glow for etched look)
+    ctx.save();
+    ctx.fillStyle = `rgba(255,255,255,${this.options.textOpacity})`;
+    ctx.font = `${this.options.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.shadowColor = "rgba(255,255,255,0.35)";
+    ctx.shadowBlur = 6;
+
+    for (let y = 0; y < h; y += this.options.gridSize) {
+      for (let x = 0; x < w; x += this.options.gridSize) {
+        const px = Math.min(w - 1, x);
+        const py = Math.min(h - 1, y);
+        const i = (py * w + px) * 4;
+        const r = imgData[i];
+        const g = imgData[i + 1];
+        const b = imgData[i + 2];
+
         const brightness = (r + g + b) / 3 / 255;
-        const adjustedBrightness =
-          (brightness - 0.5) * this.options.contrast + 0.5;
+        const adjusted = (brightness - 0.5) * this.options.contrast + 0.5;
 
-        // 5. If the spot is bright enough, draw a random character
-        if (adjustedBrightness > this.options.minBrightness) {
+        if (adjusted > this.options.minBrightness) {
           const char =
             this.options.characters[
               Math.floor(Math.random() * this.options.characters.length)
             ];
-          this.ctx.fillText(char, x, y);
+          ctx.fillText(char, x, y);
         }
       }
     }
+    ctx.restore();
+
+    // --- Glassy embedded overlays ---
+
+    // Subtle inner vignette (embedded/inset look)
+    ctx.save();
+    roundedRectPath(ctx, 0, 0, w, h, this.options.borderRadius);
+    ctx.clip();
+    const vignette = ctx.createRadialGradient(
+      w * 0.5,
+      h * 0.5,
+      Math.min(w, h) * 0.2,
+      w * 0.5,
+      h * 0.5,
+      Math.max(w, h) * 0.7
+    );
+    vignette.addColorStop(0, "rgba(0,0,0,0)");
+    vignette.addColorStop(1, "rgba(0,0,0,0.28)");
+    ctx.globalCompositeOperation = "multiply";
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, w, h);
+    ctx.restore();
+
+    // Soft top gloss highlight
+    ctx.save();
+    roundedRectPath(ctx, 0, 0, w, h, this.options.borderRadius);
+    ctx.clip();
+    const gloss = ctx.createLinearGradient(0, 0, 0, h * 0.6);
+    gloss.addColorStop(0, "rgba(255,255,255,0.25)");
+    gloss.addColorStop(0.5, "rgba(255,255,255,0.10)");
+    gloss.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.globalCompositeOperation = "screen";
+    ctx.fillStyle = gloss;
+    ctx.fillRect(0, 0, w, h * 0.65);
+    ctx.restore();
+
+    // Diagonal specular streak
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    ctx.translate(-w * 0.15, -h * 0.25);
+    ctx.rotate((-18 * Math.PI) / 180);
+    const streakGrad = ctx.createLinearGradient(0, 0, w * 1.2, 0);
+    streakGrad.addColorStop(0, "rgba(255,255,255,0)");
+    streakGrad.addColorStop(0.5, "rgba(255,255,255,0.18)");
+    streakGrad.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = streakGrad;
+    ctx.fillRect(0, 0, w * 1.4, h * 0.18);
+    ctx.restore();
+
+    // Border glow / polished edge
+    ctx.save();
+    roundedRectPath(
+      ctx,
+      0.5,
+      0.5,
+      w - 1,
+      h - 1,
+      this.options.borderRadius - 0.5
+    );
+    const edge = ctx.createLinearGradient(0, 0, w, h);
+    edge.addColorStop(0, "rgba(255,255,255,0.55)");
+    edge.addColorStop(0.5, "rgba(255,255,255,0.22)");
+    edge.addColorStop(1, "rgba(255,255,255,0.10)");
+    ctx.strokeStyle = edge;
+    ctx.lineWidth = 1;
+    ctx.shadowColor = "rgba(0,0,0,0.35)";
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetY = 4;
+    ctx.stroke();
+    ctx.restore();
   }
 
-  // Cleanup function for React's useEffect
   destroy() {
-    const { width, height } = this.canvas;
-    this.ctx.clearRect(0, 0, width, height);
+    const rect = this.canvas.getBoundingClientRect();
+    this.ctx.clearRect(0, 0, rect.width, rect.height);
   }
 }
 
 export default function AsciiEye() {
-  const asciiArtRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const asciiArtRef = useRef<StaticAsciiOverlay | null>(null);
+  const resizeObsRef = useRef<ResizeObserver | null>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(SplitText);
-
-    // --- GSAP Animation for the title text ---
-    const creativityText = document.getElementById("creativity-text");
-    const split = new SplitText(creativityText, {
-      type: "lines",
-      linesClass: "line-wrapper", // Use a wrapper to avoid interfering with layout
+    const canvas = canvasRef.current!;
+    const container = containerRef.current!;
+    const ascii = new StaticAsciiOverlay(canvas, "/eye.jpeg", {
+      gridSize: 12,
+      fontSize: 11,
+      textOpacity: 0.55,
+      borderRadius: 22,
     });
+    asciiArtRef.current = ascii;
 
-    const lines = new SplitText(creativityText, {
-      type: "lines",
-      linesClass: "line-child",
-    });
+    // Initial size
+    ascii.sizeTo(container);
 
-    gsap.set(lines.lines, { y: "100%" });
-    gsap.to(lines.lines, {
-      y: "0%",
-      duration: 0.8,
-      stagger: 0.1,
-      ease: "power3.out",
-      delay: 0.2,
-    });
+    // Resize observer for responsiveness & crisp DPR rendering
+    const ro = new ResizeObserver(() => ascii.sizeTo(container));
+    ro.observe(container);
+    resizeObsRef.current = ro;
 
-    // --- Initialize the Static ASCII Art Effect ---
-    // Note: The animation-related properties (diffusion, decay, etc.) are removed.
-    const asciiArt = new StaticAsciiOverlay(
-      document.getElementById("canvas"),
-      "https://cdn.cosmos.so/a8bf7aec-4414-4a8f-991b-d7d2f970a626?format=jpeg",
-      {
-        gridSize: 12,
-        fontSize: 10,
-        characters: "✦❍INFINITY*+",
-        contrast: 1.25, // Higher contrast makes brightness differences more stark
-        minBrightness: 0.15, // Lower this to include darker areas
-        textOpacity: 0.55,
-        imageBrightness: 0.8,
-        imageContrast: 1.0,
-      }
-    );
-    asciiArtRef.current = asciiArt;
-
-    // --- Cleanup function ---
     return () => {
-      if (asciiArtRef.current) {
-        asciiArtRef.current.destroy();
-      }
-      split.revert();
-      lines.revert();
+      ro.disconnect();
+      ascii.destroy();
+      asciiArtRef.current = null;
     };
   }, []);
 
   return (
-    <div id="canvas-container" className="relative w-full h-full bg-black">
-      <style jsx global>{`
-        .line-wrapper {
-          overflow: hidden;
-        }
-      `}</style>
-      <canvas
-        id="canvas"
-        width={800}
-        height={600}
-        className="absolute top-0 left-0 w-full h-full object-cover"
-      ></canvas>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="absolute bottom-0 left-0 z-10 p-8 text-white font-mono text-lg italic">
+    <div
+      ref={containerRef}
+      className="
+        relative w-full h-full
+      "
+    >
+      {/* Glassy embedded panel wrapper */}
+      <div
+        className="
+          relative w-full h-full rounded-tl-3xl rounded-bl-3xl
+          bg-white/10 backdrop-blur-xl
+          ring-1 ring-white/20
+          overflow-hidden
+          before:content-[''] before:absolute before:inset-0 before:pointer-events-none
+          before:shadow-[inset_0_0_80px_rgba(0,0,0,0.35)]
+          after:content-[''] after:absolute after:top-0 after:left-0 after:right-0 after:h-1/2 after:pointer-events-none
+        "
+      >
+        {/* Canvas */}
+        <canvas
+          ref={canvasRef}
+          className="absolute inset-0 block w-full h-full"
+        />
+
+        {/* Extra CSS gloss streak for depth */}
+        <div
+          className="
+            pointer-events-none absolute -top-10 -left-10
+            w-[160%] h-1/3 rotate-[-18deg]
+            bg-gradient-to-r from-transparent via-white/15 to-transparent blur-2xl
+          "
+        />
+
+        {/* Footer label */}
+        <div className="absolute bottom-0 left-0 z-10 p-4 sm:p-6 text-white/90 font-mono text-base italic select-none">
           infinity.
         </div>
       </div>

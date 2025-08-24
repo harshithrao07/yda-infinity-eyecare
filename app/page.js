@@ -1,12 +1,24 @@
-import AboutSection from "@/components/AboutSection";
+"use client"
+
+import FeaturedSection from "@/components/FeaturedSection";
 import HeroSection from "@/components/HeroSection";
-import ShaderBackground from "@/components/shader-background";
+import ServicesSection from "@/components/ServicesSection";
+import TestimonialSections from "@/components/TestimonialsSection";
+import { useEffect } from "react";
 
 export default function Page() {
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
+
+
   return (
     <>
       <HeroSection />
-      <AboutSection />
+      <ServicesSection />
+      <FeaturedSection />
+      <TestimonialSections />
     </>
   );
 }

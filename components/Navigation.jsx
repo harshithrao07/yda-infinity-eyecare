@@ -5,12 +5,8 @@ import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import { Figtree } from "next/font/google";
-
-const figtree = Figtree({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
+import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const [hidden, setHidden] = useState(false);
@@ -20,12 +16,44 @@ export default function Header() {
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
 
+  const pathname = usePathname();
+
   const navList = [
+    { name: "Home", link: "/" },
     { name: "About", link: "/about" },
-    { name: "Services", link: "/services" },
-    { name: "Gallery", link: "/gallery" },
     { name: "Blogs", link: "/blogs" },
+    { name: "Gallery", link: "/gallery" },
   ];
+
+  const [activeIndex, setActiveIndex] = useState(
+    navList.findIndex((item) => item.link === pathname)
+  );
+  
+  // 1. Create a ref to hold an array of the link elements
+  const navLinkRefs = useRef([]);
+  // 2. Create state to hold the calculated 'x' position for the dot
+  const [dotX, setDotX] = useState(0);
+
+
+  useEffect(() => {
+    const index = navList.findIndex((item) => item.link === pathname);
+    setActiveIndex(index);
+  }, [pathname, navList]); // Added navList to dependency array for correctness
+
+  // 3. New useEffect to calculate the dot's position when activeIndex changes
+  useEffect(() => {
+    if (activeIndex !== -1 && navLinkRefs.current[activeIndex]) {
+      const activeLinkElement = navLinkRefs.current[activeIndex];
+      const linkOffsetLeft = activeLinkElement.offsetLeft;
+      const linkWidth = activeLinkElement.offsetWidth;
+      const dotWidth = 8; // Corresponds to w-2 class (0.5rem = 8px)
+      
+      // Calculate the center position: start of link + half link width - half dot width
+      const newX = linkOffsetLeft + (linkWidth / 2) - (dotWidth / 2);
+      
+      setDotX(newX);
+    }
+  }, [activeIndex]);
 
   // First-load animation
   useEffect(() => {
@@ -46,21 +74,15 @@ export default function Header() {
         const last = lastScrollYRef.current;
         const delta = y - last;
 
-        // Hide/show header
-        if (delta > THRESHOLD) {
-          setHidden(true); // scrolling down
-        } else if (delta < -THRESHOLD) {
-          setHidden(false); // scrolling up
-        }
+        if (delta > THRESHOLD) setHidden(true);
+        else if (delta < -THRESHOLD) setHidden(false);
 
-        // Nav background logic
         if (y === 0) {
-          setShowNavBg(false); // topmost: transparent
+          setShowNavBg(false);
         } else {
           if (delta < -THRESHOLD || isHovered) {
-            setShowNavBg(true); // scrolling up or hovered
-          } 
-          // else: do nothing, keep current state (prevents disappearing mid-page)
+            setShowNavBg(true);
+          }
         }
 
         lastScrollYRef.current = y < 0 ? 0 : y;
@@ -70,9 +92,8 @@ export default function Header() {
 
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [isHovered]); // only isHovered as dependency
+  }, [isHovered]);
 
-  // Header slide animation
   let headerStateClass = "";
   if (!mounted) headerStateClass = "-translate-y-10 opacity-0";
   else if (hidden) headerStateClass = "-translate-y-20 opacity-100";
@@ -98,36 +119,45 @@ export default function Header() {
         </Link>
       </div>
 
-      {/* Nav with hover + scroll-up background */}
+      {/* Nav */}
       <div
         className={`absolute left-1/2 -translate-x-1/2 hidden lg:flex px-7 py-4 rounded-4xl
-                    transition-all duration-500 border
-                    ${showNavBg || isHovered
-                      ? "bg-white/40 backdrop-blur-md border-gray-300/70 shadow-sm"
-                      : "bg-transparent border-transparent"
+                    transition-all duration-500 border relative
+                    ${
+                      showNavBg || isHovered
+                        ? "bg-white/40 backdrop-blur-md border-gray-300/70 shadow-sm"
+                        : "bg-transparent border-transparent"
                     }`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <nav className="flex gap-12 w-fit">
+        <nav className="flex gap-12 w-fit relative">
           {navList.map((nav, index) => (
             <Link
               key={index}
               href={nav.link}
               prefetch={false}
-              className={`
-                ${figtree.className}
-                font-semibold uppercase text-sm relative
-                after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2 after:bottom-[-6px]
-                after:block after:w-1 after:h-1 after:rounded-full
-                after:bg-gray-500 after:opacity-0 after:scale-50
-                hover:after:opacity-90 hover:after:scale-100
-                after:blur-[1px] after:transition-all after:duration-300 after:ease-out
-              `}
+              className="font-figtree font-semibold uppercase text-sm relative"
+              // 4. Attach the ref to each Link element
+              ref={(el) => (navLinkRefs.current[index] = el)}
             >
-              <span className="relative z-10">{nav.name}</span>
+              {nav.name}
             </Link>
           ))}
+
+          {/* Moving dot */}
+          <motion.div
+            layout
+            className="absolute bottom-[-6px] w-1 h-1 rounded-full bg-gray-700 blur-[1px]"
+            initial={false}
+            // 5. Use the dynamic state value for the animation
+            animate={{ x: dotX }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 28,
+            }}
+          />
         </nav>
       </div>
 
@@ -149,7 +179,9 @@ export default function Header() {
                 <Link
                   key={index}
                   href={nav.link}
-                  className="flex w-full items-center py-2 text-lg font-semibold"
+                  className={`flex w-full items-center py-2 text-lg font-semibold ${
+                    pathname === nav.link ? "text-black" : ""
+                  }`}
                   prefetch={false}
                 >
                   {nav.name}
