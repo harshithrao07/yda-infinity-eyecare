@@ -1,7 +1,7 @@
 import AboutSection from "@/components/AboutSection";
-import React from "react";
 
-const page = () => {
+export default function Page() {
+
   return (
     <div className="relative">
       <div className="absolute inset-0 opacity-[3]">
@@ -16,6 +16,4 @@ const page = () => {
       <AboutSection />
     </div>
   );
-};
-
-export default page;
+}

@@ -1,12 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion } from "framer-motion";
-import { BriefcaseMedical, Eye, Monitor } from "lucide-react";
+import { motion, useAnimation, useReducedMotion } from "framer-motion";
+import { BriefcaseMedical, Eye, Monitor, PhoneCall } from "lucide-react";
 import ShaderBackground from "./shader-background-light";
+import { Button } from "./ui/button";
 
 export default function AboutSection() {
   const prefersReducedMotion = useReducedMotion();
+  const controls = useAnimation();
 
   const team = [
     {
@@ -258,10 +260,13 @@ export default function AboutSection() {
       </ShaderBackground>
 
       {/* DOCTORS */}
-      <section className="py-20 bg-[#f7f2ee]">
+      <section className="py-20 bg-[#f7f3ef]">
         <div className="max-w-7xl mx-auto px-6 text-center">
-          <h3 className="text-3xl font-bold text-neutral-900 mb-4 font-playfair-display">
-            Meet Our Experts
+          <h3 className="text-4xl font-medium text-neutral-900 mb-4">
+            Meet Our{" "}
+            <span className="font-playfair-display italic font-semibold">
+              Experts
+            </span>
           </h3>
           <p className="text-neutral-600 mb-12">
             Our team of skilled optometrists and eyewear specialists is here to
@@ -278,7 +283,7 @@ export default function AboutSection() {
             {team.map((member, i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl border border-black p-8 text-center max-w-sm w-full"
+                className="text-center max-w-sm w-full group bg-white cursor-default backdrop-blur-md rounded-xl p-10 border border-gray-400"
               >
                 <div className="w-48 h-48 mx-auto mb-8">
                   <Image
@@ -286,10 +291,10 @@ export default function AboutSection() {
                     alt={member.name}
                     width={192}
                     height={192}
-                    className="object-cover rounded-2xl w-full h-full border border-black"
+                    className="object-cover w-full h-full bg-white cursor-default backdrop-blur-md rounded-xl border border-gray-400"
                   />
                 </div>
-                <h4 className="text-3xl font-extrabold font-oswald text-neutral-800 uppercase mb-3">
+                <h4 className="text-3xl font-extrabold font-oswald text-neutral-700 uppercase mb-3">
                   {member.name}
                 </h4>
                 <p className="text-neutral-500 text-lg">{member.role}</p>
@@ -299,72 +304,48 @@ export default function AboutSection() {
         </div>
       </section>
 
-      {/* VIDEO SECTION */}
-      <section className="py-20 bg-gradient-to-br from-[#F3E8FF] to-[#E9D5FF] relative">
-        <div className="max-w-7xl mx-auto px-6 lg:px-20 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <ShaderBackground>
+        {/* CTA */}
+        <section className="py-16 text-black text-center relative">
+          <h2 className="text-4xl font-medium mb-4">
+            Your Vision, Our Mission
+          </h2>
+          <p className="text-lg mb-8 font-figtree">
+            Book your eye exam today and discover frames that fit your style.
+          </p>
+          <div className="flex items-center justify-center gap-4 flex-wrap">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
-              className="flex justify-center lg:justify-start"
+              initial={{ filter: "blur(8px)", opacity: 0, y: 6 }}
+              whileInView={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.7 }}
+              transition={{
+                duration: prefersReducedMotion ? 0.01 : 0.6,
+                ease: "easeOut",
+                delay: 0.25,
+              }}
             >
-              <div className="relative w-80 h-[568px] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-white/80 to-purple-100/60 backdrop-blur-sm border border-white/50">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="text-purple-700 font-figtree text-sm font-medium">
-                    Watch Our Store Tour
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="space-y-6"
-            >
-              <h2 className="text-4xl font-bold text-neutral-900 font-playfair-display">
-                Eye Care & Eyewear Like Never Before
-              </h2>
-              <p className="text-lg text-neutral-600 leading-relaxed font-figtree">
-                Our boutique blends healthcare and fashion, ensuring your eyes
-                are healthy and your look is sharp.
-              </p>
-              <div className="space-y-3">
-                {[
-                  "Comprehensive Eye Exams",
-                  "Designer Eyewear & Sunglasses",
-                  "Custom Prescription Lenses",
-                  "Contact Lens Fitting & Training",
-                ].map((point, i) => (
-                  <div key={i} className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                    <span className="text-neutral-700 font-figtree">
-                      {point}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-7 bg-white cursor-pointer border-gray-400 border-1 group hover:border-gray-600 hover:shadow-lg transition-all duration-300 hover:bg-gray-50"
+                onMouseEnter={() => {
+                  controls.start({
+                    rotate: [0, -15, 15, -10, 10, 0],
+                    transition: { duration: 0.6, ease: "easeInOut" },
+                  });
+                }}
+              >
+                <span className="relative flex items-center gap-x-3">
+                  <motion.div animate={controls}>
+                    <PhoneCall />
+                  </motion.div>
+                  BOOK AN APPOINTMENT
+                </span>
+              </Button>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 bg-gradient-to-br from-purple-600 to-rose-500 text-white text-center">
-        <h2 className="text-4xl font-bold mb-4 font-playfair-display">
-          Your Vision, Our Mission
-        </h2>
-        <p className="text-lg mb-8">
-          Book your eye exam today and discover frames that fit your style.
-        </p>
-        <button className="bg-white text-purple-600 font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-purple-50 transition">
-          Book Appointment
-        </button>
-      </section>
+        </section>
+      </ShaderBackground>
     </main>
   );
 }

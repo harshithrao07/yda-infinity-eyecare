@@ -1,9 +1,15 @@
 // components/SmoothScroll.js
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 export default function SmoothScroll() {
+  let pathname = usePathname();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
   useEffect(() => {
     let currentScroll = window.scrollY;
     let targetScroll = window.scrollY;
@@ -12,7 +18,10 @@ export default function SmoothScroll() {
     const onWheel = (e) => {
       e.preventDefault(); // prevent default jump scroll
       targetScroll += e.deltaY * 0.8; // adjust speed (0.1 = very slow, 1 = normal)
-      targetScroll = Math.max(0, Math.min(targetScroll, document.body.scrollHeight - window.innerHeight));
+      targetScroll = Math.max(
+        0,
+        Math.min(targetScroll, document.body.scrollHeight - window.innerHeight)
+      );
       if (!ticking) requestAnimationFrame(updateScroll);
       ticking = true;
     };
