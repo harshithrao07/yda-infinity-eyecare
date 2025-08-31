@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "title": "Understanding Common Eye Conditions",
+    "category": "Eye Care",
+    "createdAt": "August 1, 2025",
+    "readingTime": 6,
+    "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80",
+    "file": "/blogs/post-1.md"
+  },
+  {
+    "id": 2,
+    "title": "How Nutrition Affects Your Eyes",
+    "category": "Lifestyle",
+    "createdAt": "July 20, 2025",
+    "readingTime": 5,
+    "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=1200&q=80",
+    "file": "/blogs/post-2.md"
+  },
+  {
+    "id": 3,
+    "title": "The Impact of Screen Time on Your Eyes",
+    "category": "Eye Health",
+    "createdAt": "August 12, 2025",
+    "readingTime": 7,
+    "image": "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
+    "file": "/blogs/post-3.md"
+  },
+  {
+    "id": 4,
+    "title": "Children’s Eye Health: What Parents Should Know",
+    "category": "Eye Care",
+    "createdAt": "May 5, 2025",
+    "readingTime": 8,
+    "image": "https://images.unsplash.com/photo-1503455637927-730bce8583c0?auto=format&fit=crop&w=1200&q=80",
+    "file": "/blogs/post-4.md"
+  },
+  {
+    "id": 5,
+    "title": "Blue Light Exposure and Its Effect on Sleep",
+    "category": "Technology",
+    "createdAt": "May 30, 2025",
+    "readingTime": 7,
+    "image": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80",
+    "file": "/blogs/post-5.md"
+  }
+]

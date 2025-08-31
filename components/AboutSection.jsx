@@ -58,7 +58,7 @@ export default function AboutSection() {
     <main className="text-neutral-700 overflow-hidden relative">
       {/* HERO */}
       <ShaderBackground>
-        <div className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 lg:px-16 py-8 sm:py-12 lg:py-16">
+        <div className="relative min-h-screen flex flex-col lg:flex-row items-center justify-center gap-8 sm:gap-12 lg:gap-16 px-4 sm:px-6 lg:px-16 py-8 sm:py-12 lg:py-22">
           {/* Background blur elements - adjusted for mobile */}
           <div className="absolute top-1/4 left-1/4 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-green-200/30 rounded-full blur-2xl" />
           <div className="absolute bottom-1/4 left-0 w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64 bg-yellow-200/20 rounded-full blur-2xl" />

@@ -57,51 +57,81 @@ const BlogPost = () => {
 
   return (
     <>
-      <section className="max-w-4xl mx-auto pt-16 px-6 pb-24">
-        <Link
-          href="/blogs"
-          className="text-blue-600 hover:underline mb-6 inline-block"
-        >
-          &larr; Back to Blog
-        </Link>
-        <h3 className="font-semibold text-lg mb-2">{post.title}</h3>
-        <p className="text-gray-500 text-sm">{post.category}</p>
-        <p className="text-gray-400 text-xs mt-1">
-          {post.createdAt} &bull; {post.readingTime} min read
-        </p>
+      {/* Blog Content */}
+      <section className="max-w-4xl mx-auto px-6 py-24">
+        {/* Breadcrumbs */}
+        <nav className="text-sm text-gray-500 mb-4" aria-label="Breadcrumb">
+          <ol className="inline-flex items-center space-x-1 md:space-x-3">
+            <li>
+              <Link href="/blogs" className="hover:underline">
+                Blogs
+              </Link>
+              <span className="mx-1">/</span>
+            </li>
+            <li className="text-gray-900 font-medium">
+              {post.title}
+            </li>
+          </ol>
+        </nav>
 
-        <div className="rounded-md overflow-hidden mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          {post.title}
+        </h1>
+
+        <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
+          <span className="font-medium">{post.category}</span>
+          <span>•</span>
+          <span>{post.createdAt}</span>
+          <span>•</span>
+          <span>{post.readingTime} min read</span>
+        </div>
+
+        <div className="rounded-xl overflow-hidden shadow-md mb-10">
           <Image
             src={post.image}
             alt={post.title}
             width={1200}
             height={675}
-            className="object-cover rounded-md"
+            className="object-cover w-full h-auto"
             priority
           />
         </div>
 
-        <article className="prose prose-lg text-gray-700 whitespace-pre-line">
+        <article className="prose prose-lg prose-indigo max-w-none text-gray-700">
           {post.content}
         </article>
       </section>
 
+      {/* Related Blogs */}
       <section className="max-w-7xl mx-auto px-4 pb-24">
-        <h2 className="text-2xl font-bold mb-6 border-b border-gray-300 pb-2">
-          Other Related Blogs
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <h2 className="text-2xl font-bold mb-8">Other Related Blogs</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {otherBlogs.map((post) => (
             <div
               key={post.id}
               onClick={() => router.push(`/blogs/${post.id}`)}
-              className="cursor-pointer rounded-md bg-white p-4 shadow hover:shadow-lg transition-shadow"
+              className="group cursor-pointer bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition-all duration-300"
             >
-              <h3 className="font-semibold text-lg mb-2">{post.title}</h3>
-              <p className="text-gray-500 text-sm">{post.category}</p>
-              <p className="text-gray-400 text-xs mt-1">
-                {post.createdAt} &bull; {post.readingTime} min read
-              </p>
+              {/* Thumbnail */}
+              <div className="relative h-40 w-full overflow-hidden">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              {/* Info */}
+              <div className="p-4">
+                <h3 className="font-semibold text-lg text-gray-900 group-hover:text-indigo-600 line-clamp-2">
+                  {post.title}
+                </h3>
+                <p className="text-gray-500 text-sm mt-1">{post.category}</p>
+                <p className="text-gray-400 text-xs mt-1">
+                  {post.createdAt} • {post.readingTime} min read
+                </p>
+              </div>
             </div>
           ))}
         </div>
