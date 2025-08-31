@@ -22,18 +22,56 @@ function MarqueeStyles() {
         __html: `
         @keyframes marquee-left {
           0% { transform: translate3d(0, 0, 0); }
-          100% { transform: translate3d(-50%, 0, 0); }
+          100% { transform: translate3d(-100%, 0, 0); }
         }
+        
+        @keyframes marquee-right {
+          0% { transform: translate3d(-100%, 0, 0); }
+          100% { transform: translate3d(0, 0, 0); }
+        }
+        
+        .marquee-container {
+          display: flex;
+          overflow: hidden;
+          width: 100%;
+        }
+        
         .marquee-track {
           display: flex;
           align-items: center;
-          gap: 8rem; /* spacing between logos */
+          gap: 4rem;
           will-change: transform;
+          flex-shrink: 0;
         }
-        .marquee-animate {
+        
+        .marquee-animate-left {
           animation-name: marquee-left;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
+        }
+        
+        .marquee-animate-right {
+          animation-name: marquee-right;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+        
+        @media (max-width: 768px) {
+          .marquee-track {
+            gap: 2rem;
+          }
+        }
+        
+        /* Pause animation on hover for accessibility */
+        .marquee-container:hover .marquee-track {
+          animation-play-state: paused;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          .marquee-animate-left,
+          .marquee-animate-right {
+            animation: none !important;
+          }
         }
       `,
       }}
@@ -41,26 +79,37 @@ function MarqueeStyles() {
   );
 }
 
-function MarqueeRow({ items, durationSec = 30, ariaLabel, invert = false }) {
+function MarqueeRow({
+  items,
+  durationSec = 300,
+  ariaLabel,
+  direction = "left",
+}) {
   const prefersReducedMotion = useReducedMotion();
 
-  // Duplicate items for seamless looping
-  const loopItems = React.useMemo(() => [...items, ...items], [items]);
+  // Create enough duplicates for seamless looping
+  const loopItems = React.useMemo(() => {
+    const duplicates = Math.ceil(100 / items.length); // Ensure smooth loop
+    return Array(duplicates).fill(items).flat();
+  }, [items]);
 
   return (
-    <div className="relative overflow-hidden w-full">
-      <div aria-label={ariaLabel} role="list">
+    <div className="marquee-container relative w-full h-18 lg:h-40">
+      <div aria-label={ariaLabel} role="list" className="flex">
         <div
           className={[
             "marquee-track",
-            prefersReducedMotion ? "" : "marquee-animate",
+            prefersReducedMotion
+              ? ""
+              : direction === "left"
+              ? "marquee-animate-left"
+              : "marquee-animate-right",
           ].join(" ")}
           style={
             prefersReducedMotion
-              ? undefined
+              ? { transform: "translateX(0)" }
               : {
                   animationDuration: `${durationSec}s`,
-                  display: "flex",
                 }
           }
           role="presentation"
@@ -70,22 +119,26 @@ function MarqueeRow({ items, durationSec = 30, ariaLabel, invert = false }) {
             <div
               role="listitem"
               key={`${brand.name}-${idx}`}
-              className="shrink-0 flex items-center justify-center w-20 h-12 md:w-24 md:h-14"
+              className="shrink-0 flex items-center justify-center 
+                         w-16 h-full sm:w-20 md:w-24 lg:w-28
+                         "
               aria-label={brand.name}
               title={brand.name}
             >
               <Image
                 src={brand.src}
-                alt={brand.name}
+                alt={`${brand.name} logo`}
                 width={brand.width}
                 height={brand.height}
-                className={`object-contain ${invert ? "invert" : ""}`}
+                className="object-contain max-w-full h-auto filter brightness-0 invert 
+                         opacity-60"
                 priority={idx < items.length}
                 loading={idx < items.length ? "eager" : "lazy"}
                 decoding="async"
-                style={{ maxWidth: "100%", height: "auto" }}
+                sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, (max-width: 1024px) 96px, 112px"
                 onError={(e) => {
                   e.currentTarget.style.visibility = "hidden";
+                  console.warn(`Failed to load brand image: ${brand.name}`);
                 }}
               />
             </div>
@@ -98,32 +151,32 @@ function MarqueeRow({ items, durationSec = 30, ariaLabel, invert = false }) {
 
 export default function BrandMarquee() {
   return (
-    <section className="w-full bg-black text-white" aria-labelledby="brands-heading">
+    <section
+      className="w-full bg-black text-white"
+      aria-labelledby="brands-heading"
+    >
       <MarqueeStyles />
-      <div className="mx-auto max-w-7xl px-4 py-12">
-        <div className="relative">
-          {/* Desktop */}
-          <div className="hidden md:block">
-            <MarqueeRow
-              items={brands}
-              durationSec={40} // slower and smooth
-              ariaLabel="Eyewear brands scrolling row"
-              invert={false}
-            />
-          </div>
-          {/* Mobile */}
-          <div className="md:hidden">
-            <MarqueeRow
-              items={brands}
-              durationSec={50} // slower for mobile
-              ariaLabel="Eyewear brands scrolling row"
-              invert={false}
-            />
-          </div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
 
-          {/* Edge gradients */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent" />
+        <div className="relative">
+          <MarqueeRow
+            items={brands}
+            durationSec={500}
+            ariaLabel="Eyewear brands scrolling marquee"
+            direction="left"
+          />
+
+          {/* Edge gradients for fade effect */}
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 
+                         w-8 sm:w-12 lg:w-16 
+                         bg-gradient-to-r from-black to-transparent z-10"
+          />
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 
+                         w-8 sm:w-12 lg:w-16 
+                         bg-gradient-to-l from-black to-transparent z-10"
+          />
         </div>
       </div>
     </section>

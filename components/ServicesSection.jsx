@@ -61,7 +61,7 @@ const ServicesSection = () => {
         </p>
         <motion.h1
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl
-                     mt-2 mb-4 sm:mb-6 font-playfair-display font-bold uppercase"
+                     mt-2 mb-4 sm:mb-6 font-playfair-display font-bold tracking-tight leading-tight uppercase"
           variants={headingVariants}
           initial="hidden"
           whileInView="visible"

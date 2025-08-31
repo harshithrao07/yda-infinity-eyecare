@@ -2,6 +2,7 @@ import { Outfit, Playfair_Display, Figtree, Oswald } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import SlowScroll from "@/components/SlowScroll";
+import Footer from "@/components/Footer";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
         <Navigation />
         <SlowScroll />
         {children}
+        <Footer />
       </body>
     </html>
   );

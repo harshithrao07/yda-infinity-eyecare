@@ -181,21 +181,21 @@ export default function FeaturedSection() {
       {/* Animated title */}
       <motion.div
         className="border-b px-4 sm:px-6 lg:px-8 xl:pl-12 
-                   font-playfair-display py-4 sm:py-5 lg:py-6"
+                   font-playfair-display py-4 sm:py-5 lg:py-6 text-center md:text-left"
         variants={titleVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
         <p
-          className="text-xs sm:text-sm md:text-base lg:text-lg 
+          className="text-xs md:text-md lg:text-lg 
                      font-medium text-indigo-600 uppercase 
-                     tracking-widest font-oswald mb-1 sm:mb-2"
+                     tracking-widest font-oswald mb-2"
         >
           Our top picks
         </p>
         <h2
-          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
                        font-bold tracking-tight uppercase leading-tight"
         >
           Featured Eyewear
@@ -205,13 +205,13 @@ export default function FeaturedSection() {
       {/* Mobile Layout (1 column) */}
       <div className="block sm:hidden">
         <Swiper
-          slidesPerView={2.25}
+          slidesPerView={2.1}
           grabCursor={true}
           loop={true}
         >
           {items.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="h-48">
+              <div className="h-56">
                 <ItemCard item={item} index={index} disableAnimation />
               </div>
             </SwiperSlide>
