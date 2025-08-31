@@ -100,7 +100,7 @@ const TestimonialSections = () => {
 
   return (
     <motion.section
-      className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8"
+      className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-12"
       initial={{ filter: "blur(10px)", opacity: 0 }}
       whileInView={{ filter: "blur(0px)", opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}

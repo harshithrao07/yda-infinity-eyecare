@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import BrandMarquee from "./BrandMarquee";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 const items = [
   {
@@ -37,10 +39,45 @@ const items = [
   },
 ];
 
-function ItemCard({ item, index }) {
+function ItemCard({ item, index, className = "", disableAnimation = false }) {
+  if (disableAnimation) {
+    return (
+      <div
+        className={`relative w-full h-full overflow-hidden cursor-default ${className}`}
+      >
+        <div className="relative w-full h-full">
+          <Image
+            src={item.image}
+            alt={item.name}
+            fill
+          />
+        </div>
+
+        <div
+          className="absolute bottom-2 sm:bottom-3 lg:bottom-4 
+                   left-2 sm:left-3 lg:left-4 
+                   w-full px-1 text-neutral-900"
+        >
+          <h3
+            className="text-lg sm:text-xl lg:text-2xl xl:text-3xl 
+                     font-light font-playfair-display leading-tight"
+          >
+            {item.name}
+          </h3>
+          <p
+            className="text-xs sm:text-sm lg:text-base 
+                     font-figtree mt-0.5 sm:mt-1 text-gray-700"
+          >
+            {item.color}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <motion.div
-      className="relative w-full h-full overflow-hidden group cursor-default"
+      className={`relative w-full h-full overflow-hidden group cursor-default ${className}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
@@ -61,6 +98,7 @@ function ItemCard({ item, index }) {
           alt={item.name}
           fill
           className="object-cover transition-all duration-700 group-hover:brightness-110"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
 
         {/* Overlay that appears on hover */}
@@ -74,7 +112,9 @@ function ItemCard({ item, index }) {
 
       {/* Text content with slide up animation */}
       <motion.div
-        className="absolute bottom-2 left-4 w-full px-1 text-neutral-900"
+        className="absolute bottom-2 sm:bottom-3 lg:bottom-4 
+                   left-2 sm:left-3 lg:left-4 
+                   w-full px-1 text-neutral-900"
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
@@ -85,14 +125,16 @@ function ItemCard({ item, index }) {
         }}
       >
         <motion.h3
-          className="text-2xl font-light font-playfair-display"
+          className="text-lg sm:text-xl lg:text-2xl xl:text-3xl 
+                     font-light font-playfair-display leading-tight"
           whileHover={{ y: -2 }}
           transition={{ duration: 0.2 }}
         >
           {item.name}
         </motion.h3>
         <motion.p
-          className="text-sm font-figtree mt-1 text-gray-700"
+          className="text-xs sm:text-sm lg:text-base 
+                     font-figtree mt-0.5 sm:mt-1 text-gray-700"
           whileHover={{ y: -2 }}
           transition={{ duration: 0.2, delay: 0.05 }}
         >
@@ -138,23 +180,49 @@ export default function FeaturedSection() {
     <section className="w-full">
       {/* Animated title */}
       <motion.div
-        className="border-b pl-12 font-playfair-display py-6"
+        className="border-b px-4 sm:px-6 lg:px-8 xl:pl-12 
+                   font-playfair-display py-4 sm:py-5 lg:py-6"
         variants={titleVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
       >
-        <p className="text-xs font-medium text-indigo-600 uppercase tracking-widest font-oswald mb-2">
+        <p
+          className="text-xs sm:text-sm md:text-base lg:text-lg 
+                     font-medium text-indigo-600 uppercase 
+                     tracking-widest font-oswald mb-1 sm:mb-2"
+        >
           Our top picks
         </p>
-        <h2 className="text-3xl font-bold tracking-tight md:text-4xl uppercase">
+        <h2
+          className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 
+                       font-bold tracking-tight uppercase leading-tight"
+        >
           Featured Eyewear
         </h2>
       </motion.div>
 
-      {/* Animated grid container */}
+      {/* Mobile Layout (1 column) */}
+      <div className="block sm:hidden">
+        <Swiper
+          slidesPerView={2.25}
+          grabCursor={true}
+          loop={true}
+        >
+          {items.map((item, index) => (
+            <SwiperSlide key={index}>
+              <div className="h-48">
+                <ItemCard item={item} index={index} disableAnimation />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* Desktop Layout (Complex 3-column grid) */}
       <motion.div
-        className="grid grid-cols-3 grid-rows-3 h-[1200px]"
+        className="hidden md:grid md:grid-cols-3 md:grid-rows-3 
+                   md:h-[800px] xl:h-[1200px]"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
@@ -162,21 +230,21 @@ export default function FeaturedSection() {
       >
         {/* Row 1 */}
         <motion.div
-          className="col-span-1 row-span-1 border-b-black border-r-black border-b-1 border-r-1"
+          className="col-span-1 row-span-1 border-b border-gray-200 border-r"
           whileHover={{ zIndex: 10 }}
         >
           <ItemCard item={items[0]} index={0} />
         </motion.div>
 
         <motion.div
-          className="col-span-1 row-span-1 border-b-black border-r-black border-b-1 border-r-1"
+          className="col-span-1 row-span-1 border-b border-gray-200 border-r "
           whileHover={{ zIndex: 10 }}
         >
           <ItemCard item={items[1]} index={1} />
         </motion.div>
 
         <motion.div
-          className="col-span-1 row-span-1 border-b-black border-b-1"
+          className="col-span-1 row-span-1 border-b border-gray-200"
           whileHover={{ zIndex: 10 }}
         >
           <ItemCard item={items[2]} index={2} />
@@ -184,7 +252,7 @@ export default function FeaturedSection() {
 
         {/* Item 4 (spans 2 rows and 2 columns) */}
         <motion.div
-          className="col-span-2 row-span-2 border-b-black border-r-black border-b-1 border-r-1"
+          className="col-span-2 row-span-2 border-b border-gray-200 border-r"
           whileHover={{ zIndex: 10 }}
         >
           <ItemCard item={items[3]} index={3} />
@@ -192,7 +260,7 @@ export default function FeaturedSection() {
 
         {/* Item 5 */}
         <motion.div
-          className="col-start-3 row-start-2 border-b-black border-b-1"
+          className="col-start-3 row-start-2 border-b border-gray-200"
           whileHover={{ zIndex: 10 }}
         >
           <ItemCard item={items[4]} index={4} />
@@ -200,7 +268,7 @@ export default function FeaturedSection() {
 
         {/* Item 6 */}
         <motion.div
-          className="col-start-3 row-start-3 border-b-black border-b-1"
+          className="col-start-3 row-start-3"
           whileHover={{ zIndex: 10 }}
         >
           <ItemCard item={items[5]} index={5} />

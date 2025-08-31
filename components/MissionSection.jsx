@@ -33,11 +33,11 @@ export default function MissionSection() {
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.95]);
 
   return (
-    <section className="py-20 relative" ref={sectionRef}>
-      <div className="max-w-4xl mx-auto px-6">
+    <section className="py-12 sm:py-16 lg:py-20 relative md:px-16 lg:px-0" ref={sectionRef}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Animated card */}
         <motion.div
-          className="relative rounded-3xl overflow-hidden shadow-xl"
+          className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl max-w-5xl mx-auto"
           style={{
             scale,
             opacity,
@@ -64,19 +64,19 @@ export default function MissionSection() {
           </motion.div>
 
           {/* Content */}
-          <div className="relative z-10 text-center py-16 px-8">
+          <div className="relative z-10 text-center py-12 px-4 sm:py-14 sm:px-6 md:py-16 md:px-8 lg:py-20 lg:px-12">
             <motion.div
               initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
               whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex items-center justify-center gap-2 mb-6"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6"
             >
-              <DotIcon color="white" size={16} />
-              <p className="text-sm tracking-[0.2em] uppercase text-white/80">
+              <DotIcon color="white" size={14} className="sm:w-4 sm:h-4" />
+              <p className="text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white/80">
                 Infinity Eye Care
               </p>
-              <DotIcon color="white" size={16} />
+              <DotIcon color="white" size={14} className="sm:w-4 sm:h-4" />
             </motion.div>
 
             <motion.h1
@@ -84,11 +84,15 @@ export default function MissionSection() {
               whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              className="font-oswald font-extrabold leading-tight tracking-[-0.02em] text-3xl sm:text-4xl md:text-4xl text-white"
+              className="font-oswald font-extrabold leading-tight tracking-[-0.02em] 
+                         text-2xl sm:text-3xl md:text-4xl lg:text-5xl
+                         text-white px-2 sm:px-0"
             >
               OUR MISSION STATEMENT
               <br className="hidden sm:block" />
-              HIGH-QUALITY EYE CARE FOR ALL
+              <span className="block sm:inline">
+                HIGH-QUALITY EYE CARE FOR ALL
+              </span>
             </motion.h1>
 
             <motion.p
@@ -96,7 +100,9 @@ export default function MissionSection() {
               whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-              className="mt-6 text-base sm:text-lg text-white/80 max-w-2xl mx-auto"
+              className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl 
+                         text-white/80 max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl 
+                         mx-auto leading-relaxed px-2 sm:px-0"
             >
               At <span className="font-oswald">Infinity Eye Care</span>, we are
               committed to safeguarding your vision through comprehensive eye
@@ -105,7 +111,7 @@ export default function MissionSection() {
               everyone, ensuring you enjoy clear vision for a lifetime.
             </motion.p>
 
-            <div className="mt-10">
+            <div className="mt-8 sm:mt-10">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -117,7 +123,13 @@ export default function MissionSection() {
               >
                 <Link
                   href="/about"
-                  className="inline-flex uppercase items-center gap-2 rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/20 hover:bg-white/15 transition"
+                  className="inline-flex uppercase items-center gap-2 
+                           rounded-full bg-white/10 
+                           px-4 py-2.5 sm:px-6 sm:py-3 lg:px-8 lg:py-4
+                           text-xs sm:text-sm md:text-base font-semibold text-white 
+                           ring-1 ring-white/20 hover:bg-white/15 
+                           transition-all duration-200 ease-out
+                           hover:scale-105 active:scale-95"
                 >
                   About us
                   <motion.div
@@ -128,7 +140,7 @@ export default function MissionSection() {
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                   >
-                    <ArrowRight size={16} />
+                    <ArrowRight size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
                   </motion.div>
                 </Link>
               </motion.div>
