@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -13,6 +18,7 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [showNavBg, setShowNavBg] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [open, setOpen] = useState(false);
   const lastScrollYRef = useRef(0);
   const tickingRef = useRef(false);
 
@@ -123,14 +129,21 @@ export default function Header() {
 
       {/* Mobile menu */}
       <div className="ml-auto lg:hidden">
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
-            <Menu />
+            <button>
+              <Menu />
+            </button>
           </SheetTrigger>
           <SheetContent
             side="left"
             className="bg-white/40 backdrop-blur-md border border-gray-300/50"
           >
+            {/* Hidden title for accessibility */}
+            <SheetHeader>
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+            </SheetHeader>
+
             <div className="grid gap-2 py-6 pl-5">
               {navList.map((nav, index) => {
                 const isActive = pathname === nav.link;
@@ -138,12 +151,11 @@ export default function Header() {
                   <Link
                     key={index}
                     href={nav.link}
+                    onClick={() => setOpen(false)}
                     className={`flex w-full items-center py-2 text-lg font-semibold transition-colors
-                      ${
-                        isActive
-                          ? "text-black"
-                          : "text-gray-800 hover:text-gray-900"
-                      }`}
+                ${
+                  isActive ? "text-black" : "text-gray-800 hover:text-gray-900"
+                }`}
                   >
                     {nav.name}
                   </Link>

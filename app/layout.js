@@ -3,6 +3,7 @@ import "./globals.css";
 import Navigation from "@/components/Navigation";
 import SlowScroll from "@/components/SlowScroll";
 import Footer from "@/components/Footer";
+import WhatsAppContactButton from "@/components/WhatsAppContactButton";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -39,7 +40,8 @@ export default function RootLayout({ children }) {
     >
       <body className={`${outfit.className} min-h-screen`}>
         <Navigation />
-        <SlowScroll />
+        <WhatsAppContactButton />
+        {/* <SlowScroll /> */}
         {children}
         <Footer />
       </body>

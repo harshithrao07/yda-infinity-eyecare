@@ -5,6 +5,7 @@ import { PhoneCall } from "lucide-react";
 import { motion, useAnimation, useReducedMotion } from "framer-motion";
 import AsciiEye from "./AsciiEye";
 import MissionSection from "./MissionSection";
+import Link from "next/link";
 
 export default function HeroContent() {
   const controls = useAnimation();
@@ -109,15 +110,14 @@ export default function HeroContent() {
               <motion.span key={w} variants={word} className="inline-block">
                 {w}
               </motion.span>
-            ))} &nbsp;
+            ))}{" "}
+            &nbsp;
             <br className="hidden lg:inline" />
-            <span className="font-light tracking-tight text-gray-800">
-              {["Limits."].map((w) => (
-                <motion.span key={w} variants={word} className="inline-block">
-                  {w}
-                </motion.span>
-              ))}
-            </span>
+            {["Limits."].map((w) => (
+              <motion.span key={w} variants={word} className="inline-block">
+                {w}
+              </motion.span>
+            ))}
           </motion.h1>
 
           {/* Description */}
@@ -155,30 +155,35 @@ export default function HeroContent() {
                 delay: 0.25,
               }}
             >
-              <Button
-                variant="outline"
-                className="rounded-full 
+              <Link
+                href="https://api.whatsapp.com/send/?phone=918277343650&text&type=phone_number&app_absent=0"
+                target="_blank"
+              >
+                <Button
+                  variant="outline"
+                  className="rounded-full 
              px-4 py-2 text-xs  
              sm:px-6 sm:py-2.5 sm:text-sm 
              md:px-7 md:py-5 md:text-base 
              bg-white cursor-pointer border-gray-400 border-1 
              group hover:border-gray-600 hover:shadow-lg 
              transition-all duration-300 hover:bg-gray-50"
-                onMouseEnter={() => {
-                  controls.start({
-                    rotate: [0, -15, 15, -10, 10, 0],
-                    transition: { duration: 0.6, ease: "easeInOut" },
-                  });
-                }}
-              >
-                <span className="relative flex items-center gap-x-2 sm:gap-x-3">
-                  <motion.div animate={controls}>
-                    <PhoneCall className="w-3.5 h-3.5 sm:w-5 sm:h-5" />{" "}
-                    {/* 📱 smaller icon on phones */}
-                  </motion.div>
-                  BOOK AN APPOINTMENT
-                </span>
-              </Button>
+                  onMouseEnter={() => {
+                    controls.start({
+                      rotate: [0, -15, 15, -10, 10, 0],
+                      transition: { duration: 0.6, ease: "easeInOut" },
+                    });
+                  }}
+                >
+                  <span className="relative flex items-center gap-x-2 sm:gap-x-3">
+                    <motion.div animate={controls}>
+                      <PhoneCall className="w-3.5 h-3.5 sm:w-5 sm:h-5" />{" "}
+                      {/* 📱 smaller icon on phones */}
+                    </motion.div>
+                    BOOK AN APPOINTMENT
+                  </span>
+                </Button>
+              </Link>
             </motion.div>
           </div>
         </div>

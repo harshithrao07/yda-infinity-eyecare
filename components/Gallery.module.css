@@ -10,6 +10,7 @@
   justify-content: center;
   background-color: #f5f5f5;
   overflow: hidden;
+  padding-block: 50px;
 }
 
 .aboutTitle {
@@ -187,11 +188,16 @@
 @media (max-width: 768px) {
   .aboutTitle {
     font-size: 4.5rem;
+    top: 100px;
   }
 
   .card {
     width: 200px;
     height: 280px;
+  }
+
+  .navArrow {
+    display: none;
   }
 
   .card.left2 {
@@ -208,5 +214,15 @@
 
   .card.right2 {
     transform: translateX(250px) scale(0.8) translateZ(-300px);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .aboutTitle {
+    top: 210px;
+  }
+
+  .navArrow {
+    display: none;
   }
 }
