@@ -142,7 +142,7 @@ export default function Header() {
                       ${
                         isActive
                           ? "text-black"
-                          : "text-gray-500 hover:text-gray-800"
+                          : "text-gray-800 hover:text-gray-900"
                       }`}
                   >
                     {nav.name}

@@ -41,7 +41,6 @@ class StaticAsciiOverlay {
       fontSize: 10,
       characters: "✦❍INFINITY*+",
       contrast: 1.25,
-      minBrightness: 0.15,
       textOpacity: 0.55,
       imageBrightness: 0.8,
       imageContrast: 1.0,
@@ -104,32 +103,57 @@ class StaticAsciiOverlay {
 
     // ASCII styling (slight glow for etched look)
     ctx.save();
-    ctx.fillStyle = `rgba(255,255,255,${this.options.textOpacity})`;
     ctx.font = `${this.options.fontSize}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.shadowColor = "rgba(255,255,255,0.35)";
     ctx.shadowBlur = 6;
 
-    for (let y = 0; y < h; y += this.options.gridSize) {
-      for (let x = 0; x < w; x += this.options.gridSize) {
-        const px = Math.min(w - 1, x);
-        const py = Math.min(h - 1, y);
+    // Draw characters in a grid pattern across the entire image
+    for (let y = this.options.gridSize / 2; y < h; y += this.options.gridSize) {
+      for (
+        let x = this.options.gridSize / 2;
+        x < w;
+        x += this.options.gridSize
+      ) {
+        const px = Math.min(w - 1, Math.floor(x));
+        const py = Math.min(h - 1, Math.floor(y));
         const i = (py * w + px) * 4;
         const r = imgData[i];
         const g = imgData[i + 1];
         const b = imgData[i + 2];
 
+        // Calculate brightness (0-1)
         const brightness = (r + g + b) / 3 / 255;
-        const adjusted = (brightness - 0.5) * this.options.contrast + 0.5;
 
-        if (adjusted > this.options.minBrightness) {
-          const char =
-            this.options.characters[
-              Math.floor(Math.random() * this.options.characters.length)
-            ];
-          ctx.fillText(char, x, y);
-        }
+        // Apply contrast adjustment
+        const adjusted = Math.max(
+          0,
+          Math.min(1, (brightness - 0.5) * this.options.contrast + 0.5)
+        );
+
+        // Map brightness to character density/opacity
+        // Darker areas get dimmer/smaller characters, brighter areas get more prominent ones
+        const charOpacity = adjusted * this.options.textOpacity + 0.3; // Always at least 10% visible
+
+        // Calculate sequential character index based on grid position
+        const gridX = Math.floor(x / this.options.gridSize);
+        const gridY = Math.floor(y / this.options.gridSize);
+        const charIndex = (gridX + gridY) % this.options.characters.length;
+
+        const char = this.options.characters[charIndex];
+
+        // Set opacity based on brightness
+        ctx.fillStyle = `rgba(255,255,255,${charOpacity})`;
+
+        // Optional: slightly vary the size based on brightness
+        const sizeMultiplier = 1.0 + adjusted * 0.5; // Size varies from 80% to 120%
+        ctx.save();
+        ctx.font = `${
+          this.options.fontSize * sizeMultiplier
+        }px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
+        ctx.fillText(char, x, y);
+        ctx.restore();
       }
     }
     ctx.restore();
@@ -220,9 +244,9 @@ export default function AsciiEye() {
     const canvas = canvasRef.current!;
     const container = containerRef.current!;
     const ascii = new StaticAsciiOverlay(canvas, "/eye.jpeg", {
-      gridSize: 12,
-      fontSize: 11,
-      textOpacity: 0.55,
+      gridSize: 14, // Slightly tighter grid for better coverage
+      fontSize: 9, // Slightly smaller to fit more characters
+      textOpacity: 0.85, // Slightly higher base opacity
       borderRadius: 22,
     });
     asciiArtRef.current = ascii;
