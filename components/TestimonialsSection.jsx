@@ -148,7 +148,7 @@ export default function TestimonialSections() {
         </motion.div>
 
         {/* Mobile Slider */}
-        <div className="block lg:hidden px-4">
+        <div className="block lg:hidden pl-4">
           <Swiper
             spaceBetween={16}
             slidesPerView={1.15}

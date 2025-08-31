@@ -211,7 +211,7 @@ export default function FeaturedSection() {
         >
           {items.map((item, index) => (
             <SwiperSlide key={index}>
-              <div className="h-56">
+              <div className="h-46">
                 <ItemCard item={item} index={index} disableAnimation />
               </div>
             </SwiperSlide>

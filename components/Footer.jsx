@@ -138,12 +138,7 @@ const Footer = () => {
           </div>
 
           {/* Bottom Bar */}
-          <div className="border-t border-gray-700 pt-6 text-center">
-            <p className="text-gray-500 text-sm">
-              © {new Date().getFullYear()} Infinity Eye Care. All rights
-              reserved.
-            </p>
-          </div>
+          <div className="border-t border-gray-700 pt-6 text-center"></div>
         </div>
       </div>
     </footer>

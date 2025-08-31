@@ -61,10 +61,12 @@ function MarqueeStyles() {
             gap: 2rem;
           }
         }
-        
-        /* Pause animation on hover for accessibility */
-        .marquee-container:hover .marquee-track {
-          animation-play-state: paused;
+
+        /* Pause animation on hover only for desktop */
+        @media (min-width: 1000px) {
+          .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
+          }
         }
         
         @media (prefers-reduced-motion: reduce) {
@@ -157,7 +159,6 @@ export default function BrandMarquee() {
     >
       <MarqueeStyles />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-12">
-
         <div className="relative">
           <MarqueeRow
             items={brands}
