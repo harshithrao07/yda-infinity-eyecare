@@ -39,7 +39,7 @@ export default function HeroContent() {
   };
 
   return (
-    <main className="min-h-screen relative bg-[#F8F8F8]">
+    <main className="min-h-screen relative bg-[#e9e9e6]">
       <div className="absolute inset-0 opacity-[3]">
         <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,rgb(156,163,175)_1px,transparent_0)] bg-[length:100px_100px]" />
       </div>
