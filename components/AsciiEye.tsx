@@ -252,7 +252,7 @@ export default function AsciiEye() {
       {/* Glassy embedded panel wrapper */}
       <div
         className="
-          relative w-full h-full rounded-tl-3xl rounded-bl-3xl
+          relative w-full h-full rounded-tl-3xl rounded-bl-3xl rounded-tr-3xl lg:rounded-tr-none rounded-br-3xl lg:rounded-br-none
           bg-white/10 backdrop-blur-xl
           ring-1 ring-white/20
           overflow-hidden
