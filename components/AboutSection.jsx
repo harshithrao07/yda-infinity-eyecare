@@ -13,6 +13,7 @@ import {
 import ShaderBackground from "./shader-background-light";
 import { Button } from "./ui/button";
 import MapsComponent from "./MapsComponent";
+import Link from "next/link";
 
 export default function AboutSection() {
   const prefersReducedMotion = useReducedMotion();
@@ -408,24 +409,29 @@ export default function AboutSection() {
               delay: 0.25,
             }}
           >
-            <Button
-              variant="outline"
-              size="lg"
-              className="rounded-full px-7 bg-white cursor-pointer border-gray-400 border-1 group hover:border-gray-600 hover:shadow-lg transition-all duration-300 hover:bg-gray-50"
-              onMouseEnter={() => {
-                controls.start({
-                  rotate: [0, -15, 15, -10, 10, 0],
-                  transition: { duration: 0.6, ease: "easeInOut" },
-                });
-              }}
+            <Link
+              href="https://api.whatsapp.com/send/?phone=918277343650&text&type=phone_number&app_absent=0"
+              target="_blank"
             >
-              <span className="relative flex items-center gap-x-3">
-                <motion.div animate={controls}>
-                  <PhoneCall />
-                </motion.div>
-                BOOK AN APPOINTMENT
-              </span>
-            </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-7 bg-white cursor-pointer border-gray-400 border-1 group hover:border-gray-600 hover:shadow-lg transition-all duration-300 hover:bg-gray-50"
+                onMouseEnter={() => {
+                  controls.start({
+                    rotate: [0, -15, 15, -10, 10, 0],
+                    transition: { duration: 0.6, ease: "easeInOut" },
+                  });
+                }}
+              >
+                <span className="relative flex items-center gap-x-3">
+                  <motion.div animate={controls}>
+                    <PhoneCall />
+                  </motion.div>
+                  BOOK AN APPOINTMENT
+                </span>
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>
