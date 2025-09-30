@@ -40,19 +40,19 @@ export default function HeroContent() {
   };
 
   return (
-    <main className="min-h-screen relative bg-[#e9e9e6]">
+    <main className="min-h-screen relative bg-[#FEFFFF]">
       {/* Background patterns */}
       <div className="absolute inset-0 opacity-[3]">
-        <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,rgb(156,163,175)_1px,transparent_0)] bg-[length:100px_100px]" />
+        <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,#A9ACAC_1px,transparent_0)] bg-[length:100px_100px]" />
       </div>
-      <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(to_right,#9ca3af_0px,#9ca3af_2px,transparent_2px,transparent_100px),repeating-linear-gradient(to_bottom,#9ca3af_0px,#9ca3af_2px,transparent_2px,transparent_100px)] bg-[length:100px_100px]" />
+      <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(to_right,#476563_0px,#476563_2px,transparent_2px,transparent_100px),repeating-linear-gradient(to_bottom,#476563_0px,#476563_2px,transparent_2px,transparent_100px)] bg-[length:100px_100px]" />
 
       {/* Main grid */}
       <div className="relative min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center gap-0 pt-10 sm:pt-16">
         {/* background glow blobs */}
-        <div className="absolute top-1/4 left-1/4 w-40 sm:w-64 h-40 sm:h-64 bg-green-200/30 rounded-full blur-2xl" />
-        <div className="absolute bottom-1/4 left-0 w-40 sm:w-64 h-40 sm:h-64 bg-yellow-200/20 rounded-full blur-2xl" />
-        <div className="absolute top-1/2 left-1/3 w-40 sm:w-64 h-40 sm:h-64 bg-red-200/30 rounded-full blur-2xl" />
+        <div className="absolute top-1/4 left-1/4 w-40 sm:w-64 h-40 sm:h-64 bg-[#77C4B7]/20 rounded-full blur-2xl" />
+        <div className="absolute bottom-1/4 left-0 w-40 sm:w-64 h-40 sm:h-64 bg-[#84DCC9]/15 rounded-full blur-2xl" />
+        <div className="absolute top-1/2 left-1/3 w-40 sm:w-64 h-40 sm:h-64 bg-[#77C4B7]/25 rounded-full blur-2xl" />
 
         {/* Left Column */}
         <div className="flex flex-col justify-center text-center lg:text-left px-6 md:px-16 lg:px-0 lg:pl-12 xl:pl-20">
@@ -63,7 +63,7 @@ export default function HeroContent() {
             viewport={{ once: true, amount: 0.6 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="inline-flex w-fit items-center px-3 sm:px-4 py-1 sm:py-1.5 
-     rounded-full bg-white/60 cursor-default backdrop-blur-md border border-white/10 shadow-lg mb-6 mx-auto lg:mx-0
+     rounded-full bg-[#77C4B7]/20 cursor-default backdrop-blur-md border border-white/10 shadow-lg mb-6 mx-auto lg:mx-0
      hover:shadow-xl transition-shadow duration-300"
           >
             <motion.div
@@ -92,7 +92,7 @@ export default function HeroContent() {
             whileInView="show"
             viewport={{ once: true, amount: 0.6 }}
             className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 
-             leading-tight tracking-tight font-light text-black mb-6 
+             leading-tight tracking-tight font-light text-[#0D0E0E] mb-6 
              text-center lg:text-left"
           >
             <span className="italic instrument inline-block font-medium">
@@ -100,7 +100,7 @@ export default function HeroContent() {
                 <motion.span
                   key={w}
                   variants={word}
-                  className="inline-block mr-3 sm:mr-4 font-playfair-display"
+                  className="inline-block mr-3 sm:mr-4 font-playfair-display text-primary"
                 >
                   {w}
                 </motion.span>
@@ -131,16 +131,16 @@ export default function HeroContent() {
               delay: 0.2,
             }}
             className="text-sm md:text-xl 
-             font-light text-gray-700 mb-8 leading-relaxed 
+             font-light text-[#476563] mb-8 leading-relaxed 
              text-center lg:text-left w-full lg:w-3/4"
           >
             At{" "}
-            <span className="font-bold italic font-playfair-display text-black">
+            <span className="font-bold italic font-playfair-display text-[#0D0E0E]">
               Infinity Eye Care
             </span>
             , we combine advanced technology with compassionate care to help you
             see the world clearly and comfortably. Your eyes deserve the best,
-            and we’re here to provide it—today and always.
+            and we're here to provide it—today and always.
           </motion.p>
 
           {/* Buttons */}
@@ -162,12 +162,17 @@ export default function HeroContent() {
                 <Button
                   variant="outline"
                   className="rounded-full 
-             px-4 py-2 text-xs  
-             sm:px-6 sm:py-2.5 sm:text-sm 
-             md:px-7 md:py-5 md:text-base 
-             bg-white cursor-pointer border-gray-400 border-1 
-             group hover:border-gray-600 hover:shadow-lg 
-             transition-all duration-300 hover:bg-gray-50"
+    px-4 py-2 text-xs  
+    sm:px-6 sm:py-2.5 sm:text-sm 
+    md:px-7 md:py-5 md:text-base 
+    bg-[#77C4B7]/50 backdrop-blur-md 
+    border border-[#476563]/50 
+    text-[#0D0E0E] font-medium
+    shadow-[0_4px_20px_rgba(119,196,183,0.25)] 
+    hover:bg-[#77C4B7]/80 
+    hover:border-[#77C4B7] 
+    hover:shadow-[0_6px_25px_rgba(71,101,99,0.35)] 
+    transition-all duration-300 cursor-pointer"
                   onMouseEnter={() => {
                     controls.start({
                       rotate: [0, -15, 15, -10, 10, 0],

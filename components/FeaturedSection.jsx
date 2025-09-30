@@ -189,7 +189,7 @@ export default function FeaturedSection() {
       >
         <p
           className="text-xs md:text-md lg:text-lg 
-                     font-medium text-indigo-600 uppercase 
+                     font-medium text-primary uppercase 
                      tracking-widest font-oswald mb-2"
         >
           Our top picks

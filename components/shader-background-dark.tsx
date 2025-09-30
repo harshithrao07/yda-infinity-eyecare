@@ -1,7 +1,6 @@
 "use client";
 
 import type React from "react";
-
 import { useEffect, useRef, useState } from "react";
 import { MeshGradient } from "@paper-design/shaders-react";
 
@@ -34,7 +33,7 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-black relative overflow-hidden"
+      className="min-h-screen bg-[#0D0E0E] relative overflow-hidden"
     >
       {/* SVG Filters */}
       <svg className="absolute inset-0 w-0 h-0">
@@ -76,19 +75,33 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
         </defs>
       </svg>
 
-      <div className="absolute inset-0 w-full h-full bg-[#1f1f2e]">
+      <div className="absolute inset-0 w-full h-full">
         <MeshGradient
-          className="absolute inset-0 w-full h-full opacity-80"
-          colors={["#1f1f2e", "#6b3dd7", "#8b5cf6", "#2e2b4b"]}
-          speed={0.3}
+          className="absolute inset-0 w-full h-full opacity-65"
+          colors={[
+            "#0D0E0E",
+            "#476563",
+            "#77C4B7",
+            "#476563",
+            "#84DCC9",
+            "#476563",
+            "#0D0E0E",
+          ]}
+          speed={0.25}
         />
       </div>
 
       <div className="absolute inset-0 w-full h-full bg-transparent">
         <MeshGradient
-          className="absolute inset-0 w-full h-full opacity-20" // slightly higher than 10% for visibility
-          colors={["#1f1f2e", "#6b3dd7", "#8b5cf6", "#2e2b4b"]}
-          speed={0.2}
+          className="absolute inset-0 w-full h-full opacity-15"
+          colors={[
+            "#0D0E0E",
+            "#476563",
+            "#77C4B7",
+            "#84DCC9",
+            "#476563",
+          ]}
+          speed={0.15}
           wireframe="true"
         />
       </div>

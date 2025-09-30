@@ -276,15 +276,12 @@ export default function AboutSection() {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Header Section */}
           <div className="mb-16 sm:mb-20">
-            {/* Main Heading */}
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
               <span className="font-light">Meet our</span>&nbsp;
               <span className="font-playfair-display italic font-semibold">
                 Specialist
               </span>
             </h2>
-
-            {/* Subtitle */}
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
               Our team of skilled optometrists and eyewear specialists is
               dedicated to helping you see clearly and look absolutely
@@ -303,13 +300,13 @@ export default function AboutSection() {
             {team.map((member, i) => (
               <div key={i} className="group relative w-full max-w-sm mx-auto">
                 {/* Card Container */}
-                <div className="relative backdrop-blur-md rounded-3xl p-8 sm:p-10">
+                <div className="relative backdrop-blur-md rounded-3xl p-8 sm:p-10 bg-white/30 border border-[#A9ACAC]/20">
                   {/* Floating gradient background */}
                   <div
                     className="absolute -inset-2 rounded-3xl"
                     style={{
                       background:
-                        "linear-gradient(135deg, #fde68a80, #fbcfe880, #c7d2fe80, #bae6fd80, #bbf7d080)",
+                        "linear-gradient(135deg, #47656340, #77C4B740, #84DCC940, #A9ACAC40, #0D0E0E20, #FEFFFF40)",
                     }}
                   ></div>
 
@@ -319,10 +316,10 @@ export default function AboutSection() {
                     <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-8">
                       {/* Image border gradient */}
                       <div
-                        className="absolute -inset-2 rounded-3xl duration-300 shadow-lg"
+                        className="absolute -inset-2 rounded-3xl shadow-lg"
                         style={{
                           background:
-                            "linear-gradient(135deg, #fde68a, #fbcfe8, #c7d2fe, #bae6fd, #bbf7d0)",
+                            "linear-gradient(135deg, #47656380, #77C4B780, #84DCC980, #A9ACAC80, #0D0E0E40, #FEFFFF80)",
                         }}
                       ></div>
                       <div className="relative w-full h-full bg-white rounded-3xl p-2">
@@ -336,29 +333,29 @@ export default function AboutSection() {
                       </div>
 
                       {/* Floating badge */}
-                      <div className="absolute -bottom-3 -right-3 w-14 h-14 bg-indigo-600 rounded-full flex items-center justify-center shadow-xl border-4 border-white">
+                      <div className="absolute -bottom-3 -right-3 w-14 h-14 bg-[#77C4B7] rounded-full flex items-center justify-center shadow-xl border-4 border-white">
                         <div className="w-4 h-4 bg-white rounded-full"></div>
                       </div>
                     </div>
 
                     {/* Member Info */}
                     <div className="space-y-4">
-                      <h4 className="text-2xl sm:text-3xl font-bold font-oswald text-indigo-7 00 uppercase tracking-wide group-hover:text-indigo-700 transition-colors duration-300">
+                      <h4 className="text-2xl sm:text-3xl font-bold font-oswald text-[#476563] uppercase tracking-wide transition-colors duration-300">
                         {member.name}
                       </h4>
                       <div className="flex items-center justify-center gap-3">
-                        <div className="w-12 h-0.5 bg-indigo-600 rounded-full"></div>
-                        <p className="text-gray-600 text-base sm:text-lg font-medium px-2">
+                        <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
+                        <p className="text-[#A9ACAC] text-base sm:text-lg font-medium px-2">
                           {member.role}
                         </p>
-                        <div className="w-12 h-0.5 bg-indigo-600 rounded-full"></div>
+                        <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
                       </div>
 
                       {/* Subtle pastel accent */}
                       <div className="flex justify-center gap-2 mt-4">
-                        <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
-                        <div className="w-2 h-2 bg-pink-200 rounded-full"></div>
-                        <div className="w-2 h-2 bg-indigo-200 rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#77C4B750] rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#84DCC950] rounded-full"></div>
                       </div>
                     </div>
                   </div>
@@ -371,19 +368,19 @@ export default function AboutSection() {
           <div className="mt-20">
             <div className="flex items-center justify-center gap-6">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-indigo-600 rounded-full"></div>
-                <div className="w-3 h-3 bg-purple-300 rounded-full"></div>
-                <div className="w-2 h-2 bg-pink-200 rounded-full"></div>
+                <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
+                <div className="w-3 h-3 bg-[#77C4B7] rounded-full"></div>
+                <div className="w-2 h-2 bg-[#476563] rounded-full"></div>
               </div>
-              <div className="px-6 py-2 bg-indigo-600/5 rounded-full border border-indigo-600/10">
-                <p className="text-indigo-600 text-xs lg:text-sm font-semibold">
+              <div className="px-6 py-2 bg-[#84DCC940] rounded-full border border-[#77C4B720]">
+                <p className="text-[#476563] text-xs lg:text-sm font-semibold">
                   Trusted by thousands of satisfied customers
                 </p>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-pink-200 rounded-full"></div>
-                <div className="w-3 h-3 bg-purple-300 rounded-full"></div>
-                <div className="w-4 h-4 bg-indigo-600 rounded-full"></div>
+                <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
+                <div className="w-3 h-3 bg-[#77C4B750] rounded-full"></div>
+                <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
               </div>
             </div>
           </div>

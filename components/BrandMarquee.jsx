@@ -154,7 +154,7 @@ function MarqueeRow({
 export default function BrandMarquee() {
   return (
     <section
-      className="w-full bg-black text-white"
+      className="w-full bg-[#476563] text-white"
       aria-labelledby="brands-heading"
     >
       <MarqueeStyles />
@@ -171,12 +171,12 @@ export default function BrandMarquee() {
           <div
             className="pointer-events-none absolute inset-y-0 left-0 
                          w-8 sm:w-12 lg:w-16 
-                         bg-gradient-to-r from-black to-transparent z-10"
+                         bg-gradient-to-r from-[#476563] to-transparent z-10"
           />
           <div
             className="pointer-events-none absolute inset-y-0 right-0 
                          w-8 sm:w-12 lg:w-16 
-                         bg-gradient-to-l from-black to-transparent z-10"
+                         bg-gradient-to-l from-[#476563] to-transparent z-10"
           />
         </div>
       </div>

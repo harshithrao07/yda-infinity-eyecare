@@ -15,7 +15,7 @@ import Image from "next/image";
 
 const Footer = () => {
   return (
-    <footer style={{ backgroundColor: "#1f1f2e" }}>
+    <footer className="bg-[#03322f]">
       <div className="px-8 py-16 text-white">
         <div className="max-w-6xl mx-auto">
           {/* Main Grid */}
@@ -23,16 +23,15 @@ const Footer = () => {
             {/* Brand Section */}
             <div className="text-center lg:text-left">
               <Image
-                src="/white-logo.png"
+                src="/logo-light.png"
                 alt="Infinity Eye Care Logo"
                 width={80}
                 height={80}
                 className="mx-auto lg:mx-0 mb-4"
               />
-              <h1 className="text-3xl font-light mb-3">
+              <h1 className="text-3xl font-light mb-3 text-[#84DCC9]">
                 <span
                   className="font-playfair-display italic"
-                  style={{ color: "#8b5cf6" }}
                 >
                   Infinity
                 </span>
@@ -50,7 +49,7 @@ const Footer = () => {
 
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
-                  <Clock className="w-4 h-4" style={{ color: "#8b5cf6" }} />
+                  <Clock className="w-4 h-4" style={{ color: "#84DCC9" }} />
                   <div>
                     <p className="text-gray-400 text-sm">
                       Mon - Sat, 10:00 AM - 7:30 PM
@@ -62,7 +61,7 @@ const Footer = () => {
                   href="tel:08244110079"
                   className="flex items-center space-x-3 text-gray-300 hover:text-white"
                 >
-                  <Phone className="w-4 h-4" style={{ color: "#8b5cf6" }} />
+                  <Phone className="w-4 h-4" style={{ color: "#84DCC9" }} />
                   <p className="text-sm">0824 411 0079</p>
                 </Link>
 
@@ -71,7 +70,7 @@ const Footer = () => {
                   target="_blank"
                   className="flex items-center space-x-3 text-gray-300 hover:text-white"
                 >
-                  <Mail className="w-4 h-4" style={{ color: "#8b5cf6" }} />
+                  <Mail className="w-4 h-4" style={{ color: "#84DCC9" }} />
                   <p className="text-sm">info@infinityeyecare.com</p>
                 </Link>
               </div>
@@ -86,7 +85,7 @@ const Footer = () => {
                 href="https://www.google.com/maps/dir//Ibrose+commercial+complex,+4-7-730%2F41,+MG+Rd,+Tilak+Nagar,+Boloor,+Kodailbail,+Mangaluru,+Karnataka+575003/@12.8769827,74.7596321,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x3ba35bcc3efe5433:0x5ea2c8194a5061c9!2m2!1d74.8420346!2d12.8769956?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D"
                 className="flex items-start space-x-3 text-gray-400 hover:text-gray-300"
               >
-                <MapPin className="w-4 h-4 mt-1" style={{ color: "#8b5cf6" }} />
+                <MapPin className="w-4 h-4 mt-1" style={{ color: "#84DCC9" }} />
                 <div>
                   <p className="text-sm leading-relaxed">
                     Ibrose Commercial Complex

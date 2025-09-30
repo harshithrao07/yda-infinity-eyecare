@@ -73,7 +73,7 @@ export default function MissionSection() {
               className="flex items-center justify-center gap-1.5 sm:gap-2 mb-4 sm:mb-6"
             >
               <DotIcon color="white" size={14} className="sm:w-4 sm:h-4" />
-              <p className="text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white/80">
+              <p className="text-xs sm:text-sm tracking-[0.15em] sm:tracking-[0.2em] uppercase text-white">
                 Infinity Eye Care
               </p>
               <DotIcon color="white" size={14} className="sm:w-4 sm:h-4" />
@@ -101,7 +101,7 @@ export default function MissionSection() {
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
               className="mt-4 sm:mt-6 text-sm sm:text-base md:text-lg lg:text-xl 
-                         text-white/80 max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl 
+                         text-white max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl 
                          mx-auto leading-relaxed px-2 sm:px-0"
             >
               At <span className="font-oswald">Infinity Eye Care</span>, we are

@@ -84,10 +84,10 @@ export default function Header() {
         <Link href="/" className="flex items-center">
           <Image
             alt="Infinity"
-            src="/logo.png"
+            src="/logo-light.png"
             width={45}
             height={45}
-            className="w-[32px] h-[32px] sm:w-[45px] sm:h-[45px] object-contain"
+            className="w-[32px] h-[32px] sm:w-[55px] sm:h-[55px] object-contain"
             priority
           />
           <span className="sr-only">Infinity Eye Care</span>
@@ -108,17 +108,17 @@ export default function Header() {
       >
         <nav className="flex gap-12 w-fit relative">
           {navList.map((nav, index) => {
-            const isActive = pathname === nav.link;
+            const isActive =
+              nav.link === "/"
+                ? pathname === "/"
+                : pathname.startsWith(nav.link);
+
             return (
               <Link
                 key={index}
                 href={nav.link}
                 className={`font-figtree font-semibold uppercase text-sm transition-colors 
-                  ${
-                    isActive
-                      ? "text-black"
-                      : "text-gray-500 hover:text-gray-800"
-                  }`}
+        ${isActive ? "text-primary" : "text-gray-500 hover:text-primary"}`}
               >
                 {nav.name}
               </Link>
@@ -146,16 +146,17 @@ export default function Header() {
 
             <div className="grid gap-2 py-6 pl-5">
               {navList.map((nav, index) => {
-                const isActive = pathname === nav.link;
+                const isActive =
+                  nav.link === "/"
+                    ? pathname === "/"
+                    : pathname.startsWith(nav.link);
+
                 return (
                   <Link
                     key={index}
                     href={nav.link}
-                    onClick={() => setOpen(false)}
-                    className={`flex w-full items-center py-2 text-lg font-semibold transition-colors
-                ${
-                  isActive ? "text-black" : "text-gray-800 hover:text-gray-900"
-                }`}
+                    className={`font-figtree font-semibold uppercase text-sm transition-colors 
+        ${isActive ? "text-primary" : "text-gray-500 hover:text-primary"}`}
                   >
                     {nav.name}
                   </Link>

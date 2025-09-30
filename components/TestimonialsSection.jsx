@@ -98,7 +98,7 @@ export default function TestimonialSections() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <div className="text-center md:text-left w-full">
-            <p className="text-xs md:text-md lg:text-lg font-medium text-indigo-600 font-oswald uppercase tracking-widest mb-2">
+            <p className="text-xs md:text-md lg:text-lg font-medium text-primary font-oswald uppercase tracking-widest mb-2">
               Testimonials & Reviews
             </p>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase font-playfair-display font-bold text-gray-900 tracking-tight leading-tight">
@@ -114,15 +114,15 @@ export default function TestimonialSections() {
               className={`p-3 rounded-full border transition-all duration-500 group ${
                 currentIndex === 0
                   ? "border-gray-200 bg-transparent cursor-not-allowed"
-                  : "bg-transparent border border-black shadow hover:bg-indigo-700 hover:border-transparent"
+                  : "bg-transparent border border-black/10 shadow hover:bg-[#d0e8e8]"
               }`}
               aria-label="Previous testimonial"
             >
               <ArrowLeft
                 className={`h-5 w-5 transition-all duration-500 ${
                   currentIndex === 0
-                    ? "text-indigo-200"
-                    : "text-indigo-700 group-hover:text-white"
+                    ? "text-primary-light"
+                    : "text-primary group-hover:text-white"
                 }`}
               />
             </button>
@@ -132,15 +132,15 @@ export default function TestimonialSections() {
               className={`p-3 rounded-full border transition-all duration-300 group ${
                 currentIndex >= testimonials.length - 3
                   ? "border-gray-200 bg-transparent cursor-not-allowed"
-                  : "bg-transparent border border-black shadow hover:bg-indigo-700 hover:border-transparent"
+                  : "bg-transparent border border-black/10 shadow hover:bg-[#d0e8e8]"
               }`}
               aria-label="Next testimonial"
             >
               <ArrowRight
                 className={`h-5 w-5 transition-all duration-500 ${
                   currentIndex >= testimonials.length - 3
-                    ? "text-indigo-200"
-                    : "text-indigo-700 group-hover:text-white"
+                    ? "text-primary-light"
+                    : "text-primary group-hover:text-white"
                 }`}
               />
             </button>
@@ -208,7 +208,7 @@ export default function TestimonialSections() {
                 ref={(el) => {
                   if (index === 0) cardRef.current = el;
                 }}
-                className="bg-[#f7f2ee] cursor-default border-transparent border hover:border-indigo-600 transition-all duration-500 hover:border rounded-2xl flex-shrink-0"
+                className="bg-[#d0e8e8]/70 cursor-default border-transparent border hover:bg-[#c6dbdb] transition-all duration-500 hover:border rounded-2xl flex-shrink-0"
                 style={{ width: "calc((100% - 3rem) / 3)", height: "280px" }}
               >
                 <div className="p-8 h-full flex flex-col justify-between">

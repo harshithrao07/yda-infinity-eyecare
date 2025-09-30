@@ -12,3 +12,22 @@
 .font-oswald {
   font-family: var(--font-oswald), sans-serif;
 }
+
+:root {
+  --color-primary: #476563;
+  --color-secondary-1: #77C4B7;
+  --color-secondary-2: #84DCC9;
+  --color-primary-text: #056560;
+}
+
+.text-primary {
+  color: var(--color-primary-text);
+}
+
+.text-primary-light {
+  color: var(--color-secondary-2);
+}
+
+.background-light {
+  background-color: #d0e8e8;
+}

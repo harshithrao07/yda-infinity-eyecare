@@ -10,25 +10,25 @@ const services = [
     title: "Comprehensive Eye Exams",
     description:
       "Thorough vision assessments and eye health check-ups to detect issues early and keep your sight sharp.",
-    image: "/services/services_1.png",
+    image: "/services/services_1_alt.png",
   },
   {
     title: "Custom Prescription Lenses",
     description:
       "Premium lenses crafted to your exact prescription for crystal-clear vision and lasting comfort.",
-    image: "/services/services_2.png",
+    image: "/services/services_2_alt.png",
   },
   {
     title: "Pediatric Eye Care",
     description:
       "Gentle, specialized care to protect and enhance your child's vision during crucial growth stages.",
-    image: "/services/services_3.png",
+    image: "/services/services_3_alt.png",
   },
   {
     title: "Contact Lens Fitting & Guidance",
     description:
       "Personalized fittings and expert tips to ensure your contact lenses provide optimal comfort and clarity.",
-    image: "/services/services_4.png",
+    image: "/services/services_4_alt.png",
   },
 ];
 
@@ -54,9 +54,9 @@ const headingVariants = {
 
 const ServicesSection = () => {
   return (
-    <div className="min-h-screen bg-[#f7f2ee] py-12 sm:py-16 lg:py-20 text-center md:text-left">
+    <div className="min-h-screen background-light py-12 sm:py-16 lg:py-20 text-center md:text-left bg-[#d0e8e8]">
       <div className="mx-auto px-4 sm:px-6 lg:px-12">
-        <p className="text-xs md:text-md lg:text-lg font-medium text-indigo-600 font-oswald uppercase tracking-widest mb-2">
+        <p className="text-xs md:text-md lg:text-lg font-medium text-primary font-oswald uppercase tracking-widest mb-2">
           OUR SERVICES
         </p>
         <motion.h1
@@ -97,7 +97,7 @@ const ServicesSection = () => {
                          min-h-[20rem] sm:min-h-[24rem] lg:min-h-[26rem] 
                          flex flex-col items-center justify-between
                          border border-transparent 
-                         hover:border-indigo-600 hover:scale-105 
+                         hover:border-[#165551] hover:scale-105 
                          transition-all duration-300 ease-out
                          shadow-sm hover:shadow-lg"
               variants={cardVariants}
