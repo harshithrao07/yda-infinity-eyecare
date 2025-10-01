@@ -1,9 +1,9 @@
 import { Outfit, Playfair_Display, Figtree, Oswald } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
-import SlowScroll from "@/components/SlowScroll";
 import Footer from "@/components/Footer";
 import WhatsAppContactButton from "@/components/WhatsAppContactButton";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -39,6 +39,7 @@ export default function RootLayout({ children }) {
       className={`${playfairDisplay.variable} ${figtree.variable} ${oswald.variable}`}
     >
       <body className={`${outfit.className} min-h-screen`}>
+        <SpeedInsights />
         <Navigation />
         <WhatsAppContactButton />
         {/* <SlowScroll /> */}
