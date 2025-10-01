@@ -148,7 +148,6 @@ export default function TestimonialSections() {
         </motion.div>
 
         <motion.div
-          className="flex items-center justify-between mb-12 px-4 sm:px-6 lg:px-8 xl:pl-12"
           initial={{ filter: "blur(10px)", opacity: 0 }}
           whileInView={{ filter: "blur(0px)", opacity: 1 }}
           viewport={{ once: true }}
