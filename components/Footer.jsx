@@ -39,13 +39,13 @@ const Footer = () => {
                 <span className="text-gray-300">Eye Care</span>
               </h1>
               <p className="text-gray-400 text-sm">
-                Your trusted partner in comprehensive eye care.
+                Because your eyes matter
               </p>
             </div>
 
             {/* Contact Section */}
             <div>
-              <h3 className="text-white font-medium mb-4">Contact</h3>
+              <h3 className="text-white font-medium mb-4 text-center lg:text-left">Contact</h3>
 
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
@@ -78,7 +78,7 @@ const Footer = () => {
 
             {/* Location Section */}
             <div>
-              <h3 className="text-white font-medium mb-4">Location</h3>
+              <h3 className="text-white font-medium mb-4 text-center lg:text-left">Location</h3>
 
               <Link
                 target="_blank"
@@ -113,23 +113,14 @@ const Footer = () => {
                 href: "https://www.instagram.com/eyecareinfinity/",
                 icon: Instagram,
                 label: "Instagram",
-              },
-              {
-                href: "https://twitter.com/infinityeyecare",
-                icon: Twitter,
-                label: "Twitter",
-              },
-              {
-                href: "https://youtube.com/infinityeyecare",
-                icon: Youtube,
-                label: "YouTube",
-              },
+              }
             ].map(({ href, icon: Icon, label }) => (
               <Link
                 key={label}
                 href={href}
                 aria-label={label}
                 className="text-gray-400 hover:text-white"
+                target="_blank"
               >
                 <Icon className="w-5 h-5" />
               </Link>

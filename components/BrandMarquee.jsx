@@ -132,8 +132,7 @@ function MarqueeRow({
                 alt={`${brand.name} logo`}
                 width={brand.width}
                 height={brand.height}
-                className="object-contain max-w-full h-auto filter brightness-0 invert 
-                         opacity-60"
+                className="object-contain max-w-full h-auto filter brightness-0 invert"
                 priority={idx < items.length}
                 loading={idx < items.length ? "eager" : "lazy"}
                 decoding="async"

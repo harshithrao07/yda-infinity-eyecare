@@ -55,6 +55,20 @@ export default function AboutSection() {
     },
   };
 
+  const blurIn = (delay = 0) => ({
+    hidden: { filter: "blur(12px)", opacity: 0, y: 12 },
+    show: {
+      filter: "blur(0px)",
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: "easeOut",
+        delay,
+      },
+    },
+  });
+
   return (
     <main className="text-neutral-700 overflow-hidden relative">
       {/* HERO */}
@@ -82,7 +96,7 @@ export default function AboutSection() {
                 viewport={{ once: true, amount: 0.6 }}
                 className="flex gap-0.5 sm:gap-1 items-center"
               >
-                {["🛡️", "Trusted", "Eye", "Care", "Since", "2008"].map(
+                {["🛡️", "Trusted", "Eye", "Care", "Since", "2018"].map(
                   (w, i) => (
                     <motion.span
                       key={i}
@@ -275,126 +289,155 @@ export default function AboutSection() {
       <section className="relative px-5 lg:px-0 py-16 overflow-hidden">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* Header Section */}
-          <div className="mb-16 sm:mb-20">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
-              <span className="font-light">Meet our</span>&nbsp;
-              <span className="font-playfair-display italic font-semibold">
-                Specialist
-              </span>
-            </h2>
-            <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
-              Our team of skilled optometrists and eyewear specialists is
-              dedicated to helping you see clearly and look absolutely
-              fantastic.
-            </p>
-          </div>
+          <motion.div
+            variants={blurIn(0.25)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.7 }}
+          >
+            <div className="mb-16 sm:mb-20">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
+                <span className="font-light">Meet our</span>&nbsp;
+                <span className="font-playfair-display italic font-semibold">
+                  Specialist
+                </span>
+              </h2>
+              <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed">
+                Our team of skilled optometrists and eyewear specialists is
+                dedicated to helping you see clearly and look absolutely
+                fantastic.
+              </p>
+            </div>
+          </motion.div>
 
           {/* Team Grid */}
-          <div
-            className={`grid gap-8 sm:gap-10 ${
-              team.length === 1
-                ? "grid-cols-1 justify-items-center"
-                : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-            }`}
+          <motion.div
+            variants={blurIn(0.25)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.7 }}
           >
-            {team.map((member, i) => (
-              <div key={i} className="group relative w-full max-w-sm mx-auto">
-                {/* Card Container */}
-                <div className="relative backdrop-blur-md rounded-3xl p-8 sm:p-10 bg-white/30 border border-[#A9ACAC]/20">
-                  {/* Floating gradient background */}
-                  <div
-                    className="absolute -inset-2 rounded-3xl"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #47656340, #77C4B740, #84DCC940, #A9ACAC40, #0D0E0E20, #FEFFFF40)",
-                    }}
-                  ></div>
+            <div
+              className={`grid gap-8 sm:gap-10 ${
+                team.length === 1
+                  ? "grid-cols-1 justify-items-center"
+                  : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+              }`}
+            >
+              {team.map((member, i) => (
+                <div key={i} className="group relative w-full max-w-sm mx-auto">
+                  {/* Card Container */}
+                  <div className="relative backdrop-blur-md rounded-3xl p-8 sm:p-10 bg-white/30 border border-[#A9ACAC]/20">
+                    {/* Floating gradient background */}
+                    <div
+                      className="absolute -inset-2 rounded-3xl"
+                      style={{
+                        background:
+                          "linear-gradient(135deg, #47656340, #77C4B740, #84DCC940, #A9ACAC40, #0D0E0E20, #FEFFFF40)",
+                      }}
+                    ></div>
 
-                  {/* Content */}
-                  <div className="relative z-10">
-                    {/* Member Image */}
-                    <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-8">
-                      {/* Image border gradient */}
-                      <div
-                        className="absolute -inset-2 rounded-3xl shadow-lg"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, #47656380, #77C4B780, #84DCC980, #A9ACAC80, #0D0E0E40, #FEFFFF80)",
-                        }}
-                      ></div>
-                      <div className="relative w-full h-full bg-white rounded-3xl p-2">
-                        <Image
-                          src={member.img}
-                          alt={member.name}
-                          width={192}
-                          height={192}
-                          className="object-cover w-full h-full rounded-2xl"
-                        />
+                    {/* Content */}
+                    <div className="relative z-10">
+                      {/* Member Image */}
+                      <div className="relative w-40 h-40 sm:w-48 sm:h-48 mx-auto mb-8">
+                        {/* Image border gradient */}
+                        <div
+                          className="absolute -inset-2 rounded-3xl shadow-lg"
+                          style={{
+                            background:
+                              "linear-gradient(135deg, #47656380, #77C4B780, #84DCC980, #A9ACAC80, #0D0E0E40, #FEFFFF80)",
+                          }}
+                        ></div>
+                        <div className="relative w-full h-full bg-white rounded-3xl p-2">
+                          <Image
+                            src={member.img}
+                            alt={member.name}
+                            width={192}
+                            height={192}
+                            className="object-cover w-full h-full rounded-2xl"
+                          />
+                        </div>
+
+                        {/* Floating badge */}
+                        <div className="absolute -bottom-3 -right-3 w-14 h-14 bg-[#77C4B7] rounded-full flex items-center justify-center shadow-xl border-4 border-white">
+                          <div className="w-4 h-4 bg-white rounded-full"></div>
+                        </div>
                       </div>
 
-                      {/* Floating badge */}
-                      <div className="absolute -bottom-3 -right-3 w-14 h-14 bg-[#77C4B7] rounded-full flex items-center justify-center shadow-xl border-4 border-white">
-                        <div className="w-4 h-4 bg-white rounded-full"></div>
-                      </div>
-                    </div>
+                      {/* Member Info */}
+                      <div className="space-y-4">
+                        <h4 className="text-2xl sm:text-3xl font-bold font-oswald text-[#476563] uppercase tracking-wide transition-colors duration-300">
+                          {member.name}
+                        </h4>
+                        <div className="flex items-center justify-center gap-3">
+                          <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
+                          <p className="text-[#A9ACAC] text-base sm:text-lg font-medium px-2">
+                            {member.role}
+                          </p>
+                          <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
+                        </div>
 
-                    {/* Member Info */}
-                    <div className="space-y-4">
-                      <h4 className="text-2xl sm:text-3xl font-bold font-oswald text-[#476563] uppercase tracking-wide transition-colors duration-300">
-                        {member.name}
-                      </h4>
-                      <div className="flex items-center justify-center gap-3">
-                        <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
-                        <p className="text-[#A9ACAC] text-base sm:text-lg font-medium px-2">
-                          {member.role}
-                        </p>
-                        <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
-                      </div>
-
-                      {/* Subtle pastel accent */}
-                      <div className="flex justify-center gap-2 mt-4">
-                        <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
-                        <div className="w-2 h-2 bg-[#77C4B750] rounded-full"></div>
-                        <div className="w-2 h-2 bg-[#84DCC950] rounded-full"></div>
+                        {/* Subtle pastel accent */}
+                        <div className="flex justify-center gap-2 mt-4">
+                          <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
+                          <div className="w-2 h-2 bg-[#77C4B750] rounded-full"></div>
+                          <div className="w-2 h-2 bg-[#84DCC950] rounded-full"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* Bottom decoration */}
-          <div className="mt-20">
-            <div className="flex items-center justify-center gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
-                <div className="w-3 h-3 bg-[#77C4B7] rounded-full"></div>
-                <div className="w-2 h-2 bg-[#476563] rounded-full"></div>
-              </div>
-              <div className="px-6 py-2 bg-[#84DCC940] rounded-full border border-[#77C4B720]">
-                <p className="text-[#476563] text-xs lg:text-sm font-semibold">
-                  Trusted by thousands of satisfied customers
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
-                <div className="w-3 h-3 bg-[#77C4B750] rounded-full"></div>
-                <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
+            <div className="mt-20">
+              <div className="flex items-center justify-center gap-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
+                  <div className="w-3 h-3 bg-[#77C4B7] rounded-full"></div>
+                  <div className="w-2 h-2 bg-[#476563] rounded-full"></div>
+                </div>
+                <div className="px-6 py-2 bg-[#84DCC940] rounded-full border border-[#77C4B720]">
+                  <p className="text-[#476563] text-xs lg:text-sm font-semibold">
+                    Trusted by thousands of satisfied customers
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
+                  <div className="w-3 h-3 bg-[#77C4B750] rounded-full"></div>
+                  <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
+                </div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <MapsComponent />
+      <motion.div
+        variants={blurIn(0.1)}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.3 }}
+      >
+        <MapsComponent />
+      </motion.div>
 
       {/* CTA */}
       <section className="py-16 px-5 lg:px-0 text-black text-center relative">
-        <h2 className="text-4xl font-medium mb-4">Your Vision, Our Mission</h2>
-        <p className="text-lg mb-8 font-figtree">
-          Book your eye exam today and discover frames that fit your style.
-        </p>
+        <motion.div
+          variants={blurIn(0.1)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <h2 className="text-4xl font-medium mb-4">
+            Your Vision, Our Mission
+          </h2>
+          <p className="text-lg mb-8 font-figtree">
+            Book your eye exam today and discover frames that fit your style.
+          </p>
+        </motion.div>
         <div className="flex items-center justify-center gap-4 flex-wrap">
           <motion.div
             initial={{ filter: "blur(8px)", opacity: 0, y: 6 }}
@@ -412,8 +455,18 @@ export default function AboutSection() {
             >
               <Button
                 variant="outline"
-                size="lg"
-                className="rounded-full px-7 bg-white cursor-pointer border-gray-400 border-1 group hover:border-gray-600 hover:shadow-lg transition-all duration-300 hover:bg-gray-50"
+                className="rounded-full 
+    px-4 py-2 text-xs  
+    sm:px-6 sm:py-2.5 sm:text-sm 
+    md:px-7 md:py-5 md:text-base 
+    bg-[#77C4B7]/50 backdrop-blur-md 
+    border border-[#476563]/50 
+    text-[#0D0E0E] font-medium
+    shadow-[0_4px_20px_rgba(119,196,183,0.25)] 
+    hover:bg-[#77C4B7]/80 
+    hover:border-[#77C4B7] 
+    hover:shadow-[0_6px_25px_rgba(71,101,99,0.35)] 
+    transition-all duration-300 cursor-pointer"
                 onMouseEnter={() => {
                   controls.start({
                     rotate: [0, -15, 15, -10, 10, 0],
@@ -421,9 +474,10 @@ export default function AboutSection() {
                   });
                 }}
               >
-                <span className="relative flex items-center gap-x-3">
+                <span className="relative flex items-center gap-x-2 sm:gap-x-3">
                   <motion.div animate={controls}>
-                    <PhoneCall />
+                    <PhoneCall className="w-3.5 h-3.5 sm:w-5 sm:h-5" />{" "}
+                    {/* 📱 smaller icon on phones */}
                   </motion.div>
                   BOOK AN APPOINTMENT
                 </span>

@@ -160,7 +160,7 @@ export default function TestimonialSections() {
           >
             {testimonials.map((t) => (
               <SwiperSlide key={t.id}>
-                <div className="bg-[#f7f2ee] p-6 rounded-2xl h-72 flex flex-col justify-between">
+                <div className="bg-[#d0e8e8]/70 p-6 rounded-2xl h-72 flex flex-col justify-between">
                   <div className="flex items-center mb-2">
                     {[...Array(t.rating)].map((_, i) => (
                       <svg
