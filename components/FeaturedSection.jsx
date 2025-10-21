@@ -181,7 +181,7 @@ export default function FeaturedSection() {
       {/* Animated title */}
       <motion.div
         className="border-b px-4 sm:px-6 lg:px-8 xl:pl-12 
-                   font-playfair-display py-4 sm:py-5 lg:py-6 text-center md:text-left"
+                   py-4 sm:py-5 lg:py-6 text-center md:text-left"
         variants={titleVariants}
         initial="hidden"
         whileInView="visible"
@@ -189,7 +189,7 @@ export default function FeaturedSection() {
       >
         <p
           className="text-xs md:text-md lg:text-lg 
-                     font-medium text-indigo-600 uppercase 
+                     font-medium text-primary uppercase 
                      tracking-widest font-oswald mb-2"
         >
           Our top picks

@@ -28,7 +28,7 @@ const Blogs = () => {
 
             {/* Content */}
             <div className="p-5">
-              <h3 className="text-lg font-semibold text-gray-900 group-hover:text-indigo-700 line-clamp-2">
+              <h3 className="text-lg font-semibold text-gray-900 group-hover:text-[#056560] line-clamp-2">
                 {post.title}
               </h3>
               <p className="mt-2 text-sm text-gray-500">
@@ -38,7 +38,7 @@ const Blogs = () => {
 
             {/* Bottom CTA */}
             <div className="flex justify-end items-center px-5 pb-4">
-              <ArrowRightCircleIcon className="w-6 h-6 text-gray-400 group-hover:text-indigo-600 transition-colors" />
+              <ArrowRightCircleIcon className="w-6 h-6 text-gray-400 group-hover:text-[#056560] transition-colors" />
             </div>
           </div>
         ))}

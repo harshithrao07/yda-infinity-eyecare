@@ -11,15 +11,17 @@ const MapsComponent = () => {
     <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Header Section */}
       <div className="text-center mb-12">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-100/60 backdrop-blur-sm border border-blue-200/30 mb-6">
-          <MapPin className="w-4 h-4 text-indigo-600" />
-          <span className="text-indigo-600 font-medium text-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#77C4B740] backdrop-blur-sm border border-[#84DCC920] mb-6">
+          <MapPin className="w-4 h-4 text-[#476563]" />
+          <span className="text-[#476563] font-medium text-sm">
             Our Location
           </span>
         </div>
 
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light text-gray-900 mb-4">
-          <span className="font-playfair-display italic font-semibold">Find</span>{" "}
+          <span className="font-playfair-display italic font-semibold">
+            Find
+          </span>{" "}
           <span className="font-light">Us Here</span>
         </h2>
 
@@ -69,14 +71,15 @@ const MapsComponent = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-black/5 pointer-events-none rounded-3xl"></div>
 
         {/* Bottom Info Card */}
-        <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-xl border border-white/20">
+        {/* <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-4 sm:p-6 shadow-xl border border-white/20">
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="flex-1">
               <h3 className="font-semibold text-gray-900 text-lg mb-2">
                 Infinity Eye Care
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Ibrose commercial complex, 4-7-730/41, MG Rd, Tilak Nagar, Boloor, Kodailbail
+                Ibrose commercial complex, 4-7-730/41, MG Rd, Tilak Nagar,
+                Boloor, Kodailbail
                 <br />
                 Mangaluru, Karnataka 575003
               </p>
@@ -95,12 +98,13 @@ const MapsComponent = () => {
                   Hours
                 </p>
                 <p className="text-sm font-semibold text-gray-900">
-                  Mon - Sat,<br/> 10:00 AM - 7:30 PM
+                  Mon - Sat,
+                  <br /> 10:00 AM - 7:30 PM
                 </p>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

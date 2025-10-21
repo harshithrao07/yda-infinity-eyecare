@@ -68,7 +68,7 @@ const BlogPost = () => {
               </Link>
               <span className="mx-1">/</span>
             </li>
-            <li className="text-gray-900 font-medium">
+            <li className="text-primary font-medium">
               {post.title}
             </li>
           </ol>
@@ -124,7 +124,7 @@ const BlogPost = () => {
 
               {/* Info */}
               <div className="p-4">
-                <h3 className="font-semibold text-lg text-gray-900 group-hover:text-indigo-600 line-clamp-2">
+                <h3 className="font-semibold text-lg text-gray-900 group-hover:text-[#056560] line-clamp-2">
                   {post.title}
                 </h3>
                 <p className="text-gray-500 text-sm mt-1">{post.category}</p>

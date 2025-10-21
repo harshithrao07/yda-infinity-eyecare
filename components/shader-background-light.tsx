@@ -33,7 +33,7 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
   return (
     <div
       ref={containerRef}
-      className="bg-white relative overflow-hidden"
+      className="min-h-screen bg-[#FEFFFF] relative overflow-hidden"
     >
       {/* SVG Filters */}
       <svg className="absolute inset-0 w-0 h-0">
@@ -46,13 +46,13 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
             height="200%"
           >
             <feTurbulence baseFrequency="0.002" numOctaves="1" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.15" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.1" />
             <feColorMatrix
               type="matrix"
-              values="1 0 0 0 0
-                      0 1 0 0 0
-                      0 0 1 0 0
-                      0 0 0 0.7 0"
+              values="1 0 0 0 0.02
+                      0 1 0 0 0.02
+                      0 0 1 0 0.05
+                      0 0 0 0.8 0"
               result="tint"
             />
           </filter>
@@ -63,14 +63,11 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
             width="200%"
             height="200%"
           >
-            <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur" />
             <feColorMatrix
               in="blur"
               mode="matrix"
-              values="1 0 0 0 0  
-                      0 1 0 0 0  
-                      0 0 1 0 0  
-                      0 0 0 16 -8"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 12 -6"
               result="gooey"
             />
             <feComposite in="SourceGraphic" in2="gooey" operator="atop" />
@@ -78,34 +75,39 @@ export default function ShaderBackground({ children }: ShaderBackgroundProps) {
         </defs>
       </svg>
 
-      {/* Pastel Mesh Gradients */}
-      <div className="absolute inset-0 w-full h-full bg-[#ffffff]">
+      {/* Main Gradient */}
+      <div className="absolute inset-0 w-full h-full bg-[#FEFFFF]">
         <MeshGradient
-          className="absolute inset-0 w-full h-full"
+          className="absolute inset-0 w-full h-full opacity-60"
           colors={[
-            "#fde68a", // pastel yellow
-            "#fbcfe8", // pastel pink
-            "#c7d2fe", // pastel lavender
-            "#bae6fd", // pastel blue
-            "#bbf7d0", // pastel green
+            "#476563",
+            "#77C4B7",
+            "#84DCC9",
+            "#A9ACAC",
+            "#0D0E0E",
+            "#FEFFFF",
           ]}
-          speed={0.2}
+          speed={0.15}
         />
       </div>
 
+      {/* Wireframe Layer */}
       <div className="absolute inset-0 w-full h-full bg-transparent">
         <MeshGradient
-          className="absolute inset-0 w-full h-full opacity-30"
+          className="absolute inset-0 w-full h-full opacity-25"
           colors={[
-            "#fbcfe8", // pink
-            "#c7d2fe", // lavender
-            "#bae6fd", // sky blue
-            "#bbf7d0", // mint green
+            "#476563",
+            "#77C4B7",
+            "#84DCC9",
+            "#A9ACAC",
+            "#0D0E0E",
+            "#FEFFFF",
           ]}
           speed={0.1}
           wireframe="true"
         />
       </div>
+
       {children}
     </div>
   );
