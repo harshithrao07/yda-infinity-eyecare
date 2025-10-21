@@ -1,6 +1,7 @@
 "use client"
 
 import FeaturedSection from "@/components/FeaturedSection";
+import GoogleReviewsSection from "@/components/GoogleReviewsSection";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import TestimonialSections from "@/components/TestimonialsSection";
@@ -13,6 +14,7 @@ export default function Page() {
       <ServicesSection />
       <FeaturedSection />
       <TestimonialSections />
+      <GoogleReviewsSection />
     </>
   );
 }

@@ -19,28 +19,16 @@ const Footer = () => {
       <div className="px-8 py-16 text-white">
         <div className="max-w-6xl mx-auto">
           {/* Main Grid */}
-          <div className="grid lg:grid-cols-3 gap-10 mb-12">
+          <div className="grid lg:grid-cols-3 gap-10">
             {/* Brand Section */}
             <div className="text-center lg:text-left">
               <Image
-                src="/logo-light.png"
+                src="/footer-logo.png"
                 alt="Infinity Eye Care Logo"
-                width={80}
-                height={80}
+                width={200}
+                height={200}
                 className="mx-auto lg:mx-0 mb-4"
               />
-              <h1 className="text-3xl font-light mb-3 text-[#84DCC9]">
-                <span
-                  className="font-playfair-display italic"
-                >
-                  Infinity
-                </span>
-                <br />
-                <span className="text-gray-300">Eye Care</span>
-              </h1>
-              <p className="text-gray-400 text-sm">
-                Because your eyes matter
-              </p>
             </div>
 
             {/* Contact Section */}
@@ -102,7 +90,7 @@ const Footer = () => {
           </div>
 
           {/* Social Media */}
-          <div className="flex justify-center lg:justify-start space-x-4 mb-8">
+          <div className="flex justify-center lg:justify-start space-x-4 mb-8 mt-8 md:mt-0">
             {[
               {
                 href: "https://www.facebook.com/eyecareinfinity/",

@@ -82,7 +82,7 @@ export default function AboutSection() {
           {/* Left content */}
           <div className="flex-1 flex flex-col justify-center text-left max-w-2xl lg:max-w-none">
             {/* Highlight pill */}
-            <motion.div
+            {/* <motion.div
               initial={{ filter: "blur(10px)", opacity: 0, y: 8 }}
               whileInView={{ filter: "blur(0px)", opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.6 }}
@@ -108,7 +108,7 @@ export default function AboutSection() {
                   )
                 )}
               </motion.div>
-            </motion.div>
+            </motion.div> */}
 
             {/* Main Heading */}
             <motion.h1
@@ -178,7 +178,7 @@ export default function AboutSection() {
             >
               <div className="grid grid-cols-3 gap-4 sm:gap-6 w-full sm:w-fit">
                 {[
-                  { number: "15+", label: "Years in Eye Care" },
+                  { number: "7+", label: "Years in Eye Care" },
                   { number: "10k+", label: "Happy Patients" },
                   { number: "1000+", label: "Eyewear Styles" },
                 ].map((stat, i) => (
@@ -270,7 +270,7 @@ export default function AboutSection() {
                       className="bg-white hover:scale-105 cursor-default backdrop-blur-md rounded-xl p-5 lg:p-10 border border-gray-400 hover:border-gray-600 hover:shadow-lg transition-all duration-300 hover:bg-gray-50 flex flex-col items-center gap-4"
                     >
                       <Icon className="w-10 h-10 text-black" />
-                      <h4 className="text-xl font-semibold font-oswald text-black">
+                      <h4 className="text-xl font-semibold text-black">
                         {item.title}
                       </h4>
                       <p className="text-neutral-600 font-figtree">
@@ -358,11 +358,6 @@ export default function AboutSection() {
                             className="object-cover w-full h-full rounded-2xl"
                           />
                         </div>
-
-                        {/* Floating badge */}
-                        <div className="absolute -bottom-3 -right-3 w-14 h-14 bg-[#77C4B7] rounded-full flex items-center justify-center shadow-xl border-4 border-white">
-                          <div className="w-4 h-4 bg-white rounded-full"></div>
-                        </div>
                       </div>
 
                       {/* Member Info */}
@@ -372,43 +367,16 @@ export default function AboutSection() {
                         </h4>
                         <div className="flex items-center justify-center gap-3">
                           <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
-                          <p className="text-[#A9ACAC] text-base sm:text-lg font-medium px-2">
+                          <p className="text-[#808181] text-base sm:text-lg font-medium px-2">
                             {member.role}
                           </p>
                           <div className="w-12 h-0.5 bg-[#77C4B7] rounded-full"></div>
-                        </div>
-
-                        {/* Subtle pastel accent */}
-                        <div className="flex justify-center gap-2 mt-4">
-                          <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
-                          <div className="w-2 h-2 bg-[#77C4B750] rounded-full"></div>
-                          <div className="w-2 h-2 bg-[#84DCC950] rounded-full"></div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-20">
-              <div className="flex items-center justify-center gap-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
-                  <div className="w-3 h-3 bg-[#77C4B7] rounded-full"></div>
-                  <div className="w-2 h-2 bg-[#476563] rounded-full"></div>
-                </div>
-                <div className="px-6 py-2 bg-[#84DCC940] rounded-full border border-[#77C4B720]">
-                  <p className="text-[#476563] text-xs lg:text-sm font-semibold">
-                    Trusted by thousands of satisfied customers
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-[#47656350] rounded-full"></div>
-                  <div className="w-3 h-3 bg-[#77C4B750] rounded-full"></div>
-                  <div className="w-4 h-4 bg-[#84DCC9] rounded-full"></div>
-                </div>
-              </div>
             </div>
           </motion.div>
         </div>

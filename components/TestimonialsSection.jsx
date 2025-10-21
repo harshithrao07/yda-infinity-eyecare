@@ -101,7 +101,7 @@ export default function TestimonialSections() {
             <p className="text-xs md:text-md lg:text-lg font-medium text-primary font-oswald uppercase tracking-widest mb-2">
               Testimonials & Reviews
             </p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase font-playfair-display font-bold text-gray-900 tracking-tight leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase font-bold text-gray-900 tracking-tight leading-tight">
               What Our Clients Say ?
             </h2>
           </div>

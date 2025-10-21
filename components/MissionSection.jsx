@@ -104,7 +104,7 @@ export default function MissionSection() {
                          text-white max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-3xl 
                          mx-auto leading-relaxed px-2 sm:px-0"
             >
-              At <span className="font-oswald">Infinity Eye Care</span>, we are
+              At Infinity Eye Care, we are
               committed to safeguarding your vision through comprehensive eye
               exams, modern treatments, and personalized guidance. Our goal is
               to make eye health simple, approachable, and effective for

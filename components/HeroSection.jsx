@@ -43,9 +43,9 @@ export default function HeroContent() {
     <main className="min-h-screen relative bg-[#FEFFFF]">
       {/* Background patterns */}
       <div className="absolute inset-0 opacity-[3]">
-        <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,#A9ACAC_1px,transparent_0)] bg-[length:100px_100px]" />
+        <div className="h-full w-full bg-[radial-gradient(circle_at_1px_1px,#A9ACAC_1px,transparent_0)] bg-[length:80px_80px]" />
       </div>
-      <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(to_right,#476563_0px,#476563_2px,transparent_2px,transparent_100px),repeating-linear-gradient(to_bottom,#476563_0px,#476563_2px,transparent_2px,transparent_100px)] bg-[length:100px_100px]" />
+      <div className="absolute inset-0 opacity-5 bg-[repeating-linear-gradient(to_right,#476563_0px,#476563_1px,transparent_1px,transparent_80px),repeating-linear-gradient(to_bottom,#476563_0px,#476563_1px,transparent_1px,transparent_80px)] bg-[length:80px_80px]" />
 
       {/* Main grid */}
       <div className="relative min-h-screen grid grid-cols-1 lg:grid-cols-2 items-center gap-0 pt-10 sm:pt-16">
@@ -56,7 +56,7 @@ export default function HeroContent() {
 
         {/* Left Column */}
         <div className="flex flex-col justify-center text-center lg:text-left px-6 md:px-16 lg:px-0 lg:pl-12 xl:pl-20">
-          {/* Highlight pill */}
+          {/* Highlight pill
           <motion.div
             initial={{ filter: "blur(10px)", opacity: 0, y: 8 }}
             whileInView={{ filter: "blur(0px)", opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ export default function HeroContent() {
                 </motion.span>
               ))}
             </motion.div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Main Heading */}
           <motion.h1
@@ -135,7 +135,7 @@ export default function HeroContent() {
              text-center lg:text-left w-full lg:w-3/4"
           >
             At{" "}
-            <span className="font-bold italic font-playfair-display text-[#0D0E0E]">
+            <span className="font-bold italic font-playfair-display text-primary">
               Infinity Eye Care
             </span>
             , we combine advanced technology with compassionate care to help you
