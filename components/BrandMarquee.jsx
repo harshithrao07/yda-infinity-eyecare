@@ -6,13 +6,14 @@ import { useReducedMotion } from "framer-motion";
 
 const brands = [
   { name: "Ray-Ban", src: "/brands/rayban.png", width: 120, height: 40 },
-  { name: "Oakley", src: "/brands/oakley.png", width: 120, height: 40 },
-  { name: "Gucci", src: "/brands/gucci.png", width: 120, height: 40 },
-  { name: "Prada", src: "/brands/prada.png", width: 120, height: 40 },
-  { name: "Maui Jim", src: "/brands/mauijim.png", width: 130, height: 40 },
-  { name: "Persol", src: "/brands/persol.png", width: 120, height: 40 },
-  { name: "Tom Ford", src: "/brands/tomford.png", width: 120, height: 40 },
-  { name: "Dior", src: "/brands/dior.png", width: 120, height: 40 },
+  { name: "Armani Exchange", src: "/brands/armani.png", width: 120, height: 40 },
+  { name: "Carrera", src: "/brands/carrera.png", width: 120, height: 40 },
+  { name: "French Connection", src: "/brands/French_Connection.png", width: 120, height: 40 },
+  { name: "Gotti", src: "/brands/gotti.png", width: 120, height: 40 },
+  { name: "Seventh Street", src: "/brands/SEVENTH_STREET.png", width: 120, height: 40 },
+  { name: "Stepper", src: "/brands/stepper.png", width: 120, height: 40 },
+  { name: "Vogue", src: "/brands/vogue.png", width: 120, height: 40 },
+  { name: "Tommy Hilfiger", src: "/brands/tommy-hilfiger.png", width: 120, height: 40 },
 ];
 
 function MarqueeStyles() {
@@ -104,15 +105,15 @@ function MarqueeRow({
             prefersReducedMotion
               ? ""
               : direction === "left"
-              ? "marquee-animate-left"
-              : "marquee-animate-right",
+                ? "marquee-animate-left"
+                : "marquee-animate-right",
           ].join(" ")}
           style={
             prefersReducedMotion
               ? { transform: "translateX(0)" }
               : {
-                  animationDuration: `${durationSec}s`,
-                }
+                animationDuration: `${durationSec}s`,
+              }
           }
           role="presentation"
           aria-hidden="true"
