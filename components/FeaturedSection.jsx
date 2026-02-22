@@ -8,55 +8,88 @@ import "swiper/css";
 
 const items = [
   {
-    name: "Teddy",
-    color: "Voodoo",
-    image: "/featured/teddy-voodoo-flat.jpg",
+    name: "RAY-BAN",
+    color: "RB 6489",
+    image: "/featured/RB 6489.jpg",
   },
   {
-    name: "Kenji",
-    color: "Satin Silver",
-    image: "/featured/kenji-satin-silver-sun-flat.jpg",
+    name: "RAY-BAN",
+    color: "RB 5434",
+    image: "/featured/RB 5434.avif",
   },
   {
-    name: "Cleo",
-    color: "Cherry",
-    image: "/featured/cleo-medium-cherry-flat.jpg",
+    name: "FCUK",
+    color: "FCL 4340",
+    image: "/featured/FCL 4340.webp",
   },
   {
-    name: "Brooke x GANNI",
-    color: "Liquorice",
-    image: "/featured/brooke-ganni-liquorice-sun-side.jpg",
+    name: "RAY-BAN",
+    color: "RB 7236I",
+    image: "/featured/RB 7236I.webp",
   },
   {
-    name: "Neil Large",
-    color: "Satin Gold",
-    image: "/featured/neil-large-satin-gold-sun-flat.jpg",
+    name: "FCUK",
+    color: "FCL 5315",
+    image: "/featured/FCL 5315.webp",
   },
   {
-    name: "Paloma",
-    color: "Tigerwood",
-    image: "/featured/paloma-medium-tigerwood-flat.jpg",
+    name: "FCUK",
+    color: "FC 8287",
+    image: "/featured/FC 8287.webp",
+  },
+  {
+    name: "FCUK",
+    color: "FCL 4343",
+    image: "/featured/FCL 4343.webp",
+  },
+  {
+    name: "CARRERA",
+    color: "VICTORY C16",
+    image: "/featured/Carrera victory c16.webp",
+  },
+  {
+    name: "CARRERA",
+    color: "8925",
+    image: "/featured/Carrera 8925.webp",
+  },
+  {
+    name: "CARRERA",
+    color: "DUCATI 010",
+    image: "/featured/Carrera ducati  010.webp",
+  },
+  {
+    name: "Vogue",
+    color: "5516B",
+    image: "/featured/Vo 5516b.webp",
   },
 ];
 
-function ItemCard({ item, index, className = "", disableAnimation = false }) {
+function ItemCard({
+  item,
+  index,
+  className = "",
+  disableAnimation = false,
+  contain = false,
+}) {
+  const imageFitClass = contain ? "object-contain" : "object-cover";
   if (disableAnimation) {
     return (
       <div
         className={`relative w-full h-full overflow-hidden cursor-default ${className}`}
       >
-        <div className="relative w-full h-full">
+        <div className="relative w-full h-full bg-neutral-50">
           <Image
             src={item.image}
             alt={item.name}
             fill
+            className={imageFitClass}
           />
         </div>
 
         <div
           className="absolute bottom-2 sm:bottom-3 lg:bottom-4 
                    left-2 sm:left-3 lg:left-4 
-                   w-full px-1 text-neutral-900"
+                   w-full px-2 py-1 bg-neutral-50/95 text-neutral-900"
         >
           <h3
             className="text-lg sm:text-xl lg:text-2xl xl:text-3xl 
@@ -89,7 +122,7 @@ function ItemCard({ item, index, className = "", disableAnimation = false }) {
     >
       {/* Image with scale animation */}
       <motion.div
-        className="relative w-full h-full"
+        className="relative w-full h-full bg-neutral-50"
         whileHover={{ scale: 1.1 }}
         transition={{ duration: 0.4, ease: "easeOut" }}
       >
@@ -97,7 +130,7 @@ function ItemCard({ item, index, className = "", disableAnimation = false }) {
           src={item.image}
           alt={item.name}
           fill
-          className="object-cover transition-all duration-700 group-hover:brightness-110"
+          className={`${imageFitClass} transition-all duration-700 group-hover:brightness-110`}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
 
@@ -114,7 +147,7 @@ function ItemCard({ item, index, className = "", disableAnimation = false }) {
       <motion.div
         className="absolute bottom-2 sm:bottom-3 lg:bottom-4 
                    left-2 sm:left-3 lg:left-4 
-                   w-full px-1 text-neutral-900"
+                   w-full px-2 py-1 bg-neutral-50/95 text-neutral-900"
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true }}
@@ -163,6 +196,14 @@ export default function FeaturedSection() {
       },
     },
   };
+
+  const desktopColumns = 4;
+  const remainder = items.length % desktopColumns;
+  const extraItemsCount = remainder === 0 ? 0 : desktopColumns - remainder;
+  const desktopItems =
+    extraItemsCount === 0
+      ? items
+      : [...items, ...items.slice(0, extraItemsCount)];
 
   const titleVariants = {
     hidden: { opacity: 0, y: -20 },
@@ -219,60 +260,24 @@ export default function FeaturedSection() {
         </Swiper>
       </div>
 
-      {/* Desktop Layout (Complex 3-column grid) */}
       <motion.div
-        className="hidden md:grid md:grid-cols-3 md:grid-rows-3 
-                   md:h-[800px] xl:h-[1200px]"
+        className="hidden md:grid grid-cols-4 gap-0"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        {/* Row 1 */}
-        <motion.div
-          className="col-span-1 row-span-1 border-b border-gray-200 border-r"
-          whileHover={{ zIndex: 10 }}
-        >
-          <ItemCard item={items[0]} index={0} />
-        </motion.div>
-
-        <motion.div
-          className="col-span-1 row-span-1 border-b border-gray-200 border-r "
-          whileHover={{ zIndex: 10 }}
-        >
-          <ItemCard item={items[1]} index={1} />
-        </motion.div>
-
-        <motion.div
-          className="col-span-1 row-span-1 border-b border-gray-200"
-          whileHover={{ zIndex: 10 }}
-        >
-          <ItemCard item={items[2]} index={2} />
-        </motion.div>
-
-        {/* Item 4 (spans 2 rows and 2 columns) */}
-        <motion.div
-          className="col-span-2 row-span-2 border-b border-gray-200 border-r"
-          whileHover={{ zIndex: 10 }}
-        >
-          <ItemCard item={items[3]} index={3} />
-        </motion.div>
-
-        {/* Item 5 */}
-        <motion.div
-          className="col-start-3 row-start-2 border-b border-gray-200"
-          whileHover={{ zIndex: 10 }}
-        >
-          <ItemCard item={items[4]} index={4} />
-        </motion.div>
-
-        {/* Item 6 */}
-        <motion.div
-          className="col-start-3 row-start-3"
-          whileHover={{ zIndex: 10 }}
-        >
-          <ItemCard item={items[5]} index={5} />
-        </motion.div>
+        {desktopItems.map((item, index) => (
+          <motion.div
+            key={`${item.name}-${item.color}-${index}`}
+            className="overflow-hidden"
+            whileHover={{ zIndex: 10 }}
+          >
+            <div className="aspect-[4/5]">
+              <ItemCard item={item} index={index} contain />
+            </div>
+          </motion.div>
+        ))}
       </motion.div>
 
       <BrandMarquee />

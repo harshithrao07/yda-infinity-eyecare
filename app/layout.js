@@ -30,6 +30,12 @@ export const metadata = {
   title: "Infinity Eye Care",
   description:
     "At Infinity Eye Care, we provide comprehensive eye exams, a wide range of lenses and frames, and expert Contact Lens fittings.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", rel: "icon", type: "image/x-icon" },
+      { url: "/favicon.ico", rel: "shortcut icon", type: "image/x-icon" },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
